@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" width="600" height="330" role="img" aria-label="Shakil khan">
+  <defs>
+    <!-- Each letter is placed separately at a fixed centre so the circle lines up with 'a' and 'k' -->
+    <g id="word" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-weight="700" font-size="150" text-anchor="middle">
+      <text x="80"  y="230">S</text>
+      <text x="185" y="230">h</text>
+      <text x="285" y="230">a</text>
+      <text x="375" y="230">k</text>
+      <text x="440" y="230">i</text>
+      <text x="500" y="230">l</text>
+    </g>
+    <clipPath id="circleClip">
+      <circle cx="330" cy="175" r="125"/>
+    </clipPath>
+  </defs>
+
+  <!-- 1. White wordmark (visible outside the circle) -->
+  <use href="#word" fill="#ffffff"/>
+
+  <!-- 2. Mint circle, centred between 'a' and 'k', extending above and below the letters -->
+  <circle cx="330" cy="175" r="125" fill="#00ffc2"/>
+
+  <!-- 3. Same wordmark in dark, clipped to the circle: 'a' and 'k' fully dark,
+          'h' and 'i' split (dark inside, white outside) -->
+  <g clip-path="url(#circleClip)">
+    <use href="#word" fill="#111111"/>
+  </g>
+
+  <!-- Small subtext, bottom-left, clear of the circle -->
+  <text x="40" y="300" fill="#ffffff" font-family="Helvetica Neue, Helvetica, Arial, system-ui, sans-serif" font-weight="700" font-size="52">khan</text>
+</svg>

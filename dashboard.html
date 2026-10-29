@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — Shakil Khan</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#eef2f7;color:#1e293b}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;flex-shrink:0;background:#0f172a;color:#cbd5e1;padding:26px 18px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-size:20px;font-weight:800;color:#fff;letter-spacing:.5px}.brand span{color:#00ffc2}
+.brand small{display:block;font-size:12px;font-weight:400;color:#94a3b8;margin-top:2px}
+.menulabel{font-size:11px;letter-spacing:1.5px;color:#64748b;margin:26px 10px 10px}
+.menu a{display:flex;gap:12px;align-items:center;padding:11px 12px;border-radius:10px;color:#cbd5e1;margin-bottom:4px;font-size:15px}
+.menu a:hover{background:rgba(255,255,255,.06);color:#fff}
+.menu a.active{background:rgba(255,255,255,.12);color:#fff;border-left:3px solid #00ffc2}
+.menu a .ic{width:20px;text-align:center}
+.main{flex:1;min-width:0;padding:0 28px 40px}
+.topbar{background:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 24px;margin:0 -28px 26px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar h1{margin:0;font-size:22px;color:#0f172a}.topbar h1 span{color:#6366f1}
+.search{border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;min-width:240px;font-size:14px}
+.profile{display:flex;align-items:center;gap:10px;font-weight:600}
+.avatar{width:40px;height:40px;border-radius:50%;background:#00ffc2;color:#0f172a;display:flex;align-items:center;justify-content:center;font-weight:800}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}}
+.stat{background:#fff;border-radius:16px;padding:20px;display:flex;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.05);border-left:4px solid #6366f1}
+.stat:nth-child(2){border-left-color:#14b8a6}.stat:nth-child(3){border-left-color:#00c853}.stat:nth-child(4){border-left-color:#3b82f6}
+.stat small{color:#64748b}.stat b{display:block;font-size:30px;color:#0f172a;line-height:1.2}
+.stat .sub{font-size:13px;color:#94a3b8}.stat .emoji{font-size:26px}
+.charts{display:grid;grid-template-columns:1fr 1.6fr;gap:18px;margin-top:18px}
+@media(max-width:900px){.charts{grid-template-columns:1fr}}
+.panel{background:#fff;border-radius:16px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.panel h2{margin:0 0 4px;font-size:18px;color:#0f172a}.panel .note{color:#94a3b8;font-size:13px;margin:0 0 16px}
+.legend{display:flex;gap:18px;margin-top:14px;font-size:14px}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:#64748b;font-weight:600;padding:10px 8px;border-bottom:1px solid #e2e8f0}
+td{padding:12px 8px;border-bottom:1px solid #f1f5f9}
+.pill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.pill.live{background:#ccfbf1;color:#0f766e}.pill.done{background:#dbeafe;color:#1d4ed8}
+.todo label{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f1f5f9;cursor:pointer}
+.todo input{width:18px;height:18px;accent-color:#6366f1}
+.todo label.off span{color:#94a3b8;text-decoration:line-through}
+.svc{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:14px}
+.svc b{color:#0f172a}.bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.ctl label{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#6366f1;margin:14px 0 6px;font-weight:700}
+.ctl input[type=text],.ctl input[type=url],.ctl input[type=email],.ctl textarea{width:100%;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:11px 13px;color:#0f172a;font-size:14px;font-family:inherit}
+.ctl input:focus,.ctl textarea:focus{outline:none;border-color:#6366f1}
+.ctl textarea{min-height:70px;resize:vertical}
+.ctl .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctl .checks label{text-transform:none;letter-spacing:0;color:#1e293b;font-size:14px;display:flex;gap:10px;align-items:center}
+.ctl .checks input{width:18px;height:18px;accent-color:#6366f1}
+.btn2{display:inline-block;background:#6366f1;color:#fff;border:none;border-radius:10px;padding:13px 22px;font-size:15px;font-weight:700;cursor:pointer}
+.btn2:hover{filter:brightness(1.1)}
+#ctlStatus{margin-top:12px;font-size:14px;color:#0f766e;white-space:pre-line}
+@media(max-width:900px){.bottom{grid-template-columns:1fr}.sidebar{width:210px}}
+@media(max-width:700px){.layout{display:block}.sidebar{width:100%;height:auto;position:static}.main{padding:0 16px 30px}.topbar{margin:0 -16px 20px}}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#eef2f7}
+.login-card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.1);padding:32px;max-width:400px;width:100%;text-align:center}
+.login-card h1{margin:0;color:#0f172a;font-size:24px}.login-card h1 span{color:#6366f1}
+.login-card p{color:#64748b;font-size:14px}
+.login-card input{width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;font-size:15px;margin:8px 0}
+.login-card input:focus{outline:none;border-color:#6366f1}
+.login-card .err{color:#dc2626;font-size:13px;min-height:18px}
+.login-card .ok{color:#0f766e;font-size:13px;min-height:18px}
+</style>
+</head>
+<body>
+<div class="login-wrap" id="loginScreen">
+<div class="login-card">
+<h1>SK <span>DASHBOARD</span></h1>
+<p id="sbTitle">Dashboard e probesh korte login koro.</p>
+<input type="email" id="sbEmail" placeholder="Email" autocomplete="email">
+<input type="password" id="sbPass" placeholder="Password" autocomplete="current-password">
+<input type="password" id="sbPass2" placeholder="Password abar dao (signup er somoy)" style="display:none">
+<button class="btn2" style="width:100%;margin-top:8px" onclick="sbAuth()">Login koro →</button>
+<p class="err" id="sbErr"></p>
+<p class="ok" id="sbOk"></p>
+<p style="font-size:13px"><a href="#" onclick="sbToggleMode();return false" id="sbModeLink" style="color:#6366f1">Prothombar? Admin signup koro</a> · <a href="#" onclick="sbForgot();return false" style="color:#6366f1">Password vul gechi</a></p>
+<p style="font-size:12px;color:#94a3b8">Prothom signup korle role Viewer thakbe — mail confirm korar por ami tomake Administrator baniye dibo. Tarpor theke tumi Users section theke Editor/Viewer create korte parba.</p>
+</div>
+</div>
+<div class="layout" id="dashApp" style="display:none">
+<aside class="sidebar">
+<div class="brand">SK <span>DASHBOARD</span><small>Freelance Dashboard</small></div>
+<div class="menulabel">MAIN MENU</div>
+<nav class="menu">
+<a href="#top" class="active">▦ <span>Dashboard</span></a>
+<a href="#control" id="navControl">🎛 <span>Website Control</span></a>
+<a href="#projects">▣ <span>Projects</span></a>
+<a href="#services">◈ <span>Services</span></a>
+<a href="#statistics">◉ <span>Statistics</span></a>
+<a href="#todo">☑ <span>To Do List</span></a>
+</nav>
+<div class="menulabel">HELP &amp; SUPPORT</div>
+<nav class="menu">
+<a href="#settings">⚙ <span>Settings</span></a>
+<a href="#users" id="navUsers" style="display:none">👥 <span>Users</span></a>
+<a href="/">← <span>Back to Site</span></a>
+<a href="#" onclick="sbLogout();return false">↪ <span>Log Out</span></a>
+</nav>
+</aside>
+
+<main class="main" id="top">
+<div class="topbar">
+<h1>Welcome Back, <span>Shakil Khan</span> 👋</h1>
+<input class="search" id="searchBox" type="text" placeholder="🔍 Search projects...">
+<div class="profile"><span class="avatar">SK</span> Shakil Khan</div>
+</div>
+
+<section class="cards">
+<div class="stat"><div><small>Total Projects</small><b>100+</b><span class="sub">All time</span></div><span class="emoji">📁</span></div>
+<div class="stat"><div><small>Websites Built</small><b>75+</b><span class="sub">Live business sites</span></div><span class="emoji">🌐</span></div>
+<div class="stat"><div><small>Years Experience</small><b>3+</b><span class="sub">2023 — Present</span></div><span class="emoji">⭐</span></div>
+<div class="stat"><div><small>Services Offered</small><b>6</b><span class="sub">WordPress services</span></div><span class="emoji">🧩</span></div>
+</section>
+
+<section class="charts" id="statistics">
+<div class="panel">
+<h2>Projects by Experience</h2>
+<p class="note">Resume onujayi project count — kono onumanik number na.</p>
+<svg viewBox="0 0 200 200" width="210" height="210" style="display:block;margin:0 auto">
+<circle cx="100" cy="100" r="70" fill="none" stroke="#e2e8f0" stroke-width="26"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#6366f1" stroke-width="26" stroke-dasharray="313 127" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="70" fill="none" stroke="#14b8a6" stroke-width="26" stroke-dasharray="126 314" stroke-dashoffset="-313" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+<text x="100" y="98" text-anchor="middle" font-size="26" font-weight="800" fill="#0f172a">105</text>
+<text x="100" y="118" text-anchor="middle" font-size="12" fill="#64748b">Projects</text>
+</svg>
+<div class="legend"><span><span class="dot" style="background:#6366f1"></span>Softvence — 75</span><span><span class="dot" style="background:#14b8a6"></span>Startup Tech — 30</span></div>
+</div>
+
+<div class="panel">
+<h2>Project Activity</h2>
+<p class="note">Sample data — real data connect korle ekhane asol graph dekhabe.</p>
+<svg viewBox="0 0 520 220" width="100%" height="220">
+<line x1="40" y1="20" x2="40" y2="180" stroke="#e2e8f0"/><line x1="40" y1="180" x2="500" y2="180" stroke="#e2e8f0"/>
+<polyline points="40,140 90,100 140,125 190,110 240,60 290,120 340,95 390,105 440,100 490,140" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+<polygon points="40,140 90,100 140,125 190,110 240,60 290,120 340,95 390,105 440,100 490,140 490,180 40,180" fill="#6366f1" opacity="0.1"/>
+<circle cx="240" cy="60" r="5" fill="#6366f1"/><circle cx="240" cy="60" r="10" fill="#6366f1" opacity="0.15"/>
+<text x="228" y="38" font-size="12" font-weight="700" fill="#0f172a">May — 12 (sample)</text>
+<text x="40" y="200" font-size="11" fill="#94a3b8">Jan</text><text x="130" y="200" font-size="11" fill="#94a3b8">Mar</text><text x="225" y="200" font-size="11" fill="#94a3b8">May</text><text x="320" y="200" font-size="11" fill="#94a3b8">Jul</text><text x="415" y="200" font-size="11" fill="#94a3b8">Sep</text><text x="480" y="200" font-size="11" fill="#94a3b8">Nov</text>
+</svg>
+</div>
+</section>
+
+<section class="panel ctl" id="control" style="margin-top:18px">
+<h2>Website Control</h2>
+<p class="note">Ekhan theke tomar website er lekha, link ar section bodlate parba. Bodlano sesh hole <b>Export</b> chaple notun index.html download hobe — sei file ta amake pathale ami check kore live kore dibo. (Site ta static, tai dashboard theke sorasori live bodlano jay na — direct save er jonno backend lagbe, chaile pore seta setup kora jabe.)</p>
+<h2 style="font-size:16px;margin-top:20px">Hero</h2>
+<label>Choto label</label><input type="text" id="c-heroLabel" value="Hello, I'm">
+<label>Boro nam</label><input type="text" id="c-heroName" value="Shakil Khan">
+<label>Subtitle (2 line hole Enter dao)</label><textarea id="c-heroSub">I build fast, professional WordPress websites for small businesses — and fix slow, broken sites properly.
+First I find the cause, then I fix it. No jargon, no guesswork.</textarea>
+<div class="row">
+<div><label>Stat 1 — number</label><input type="text" id="c-stat1n" value="3+"><label>Stat 1 — lekha</label><input type="text" id="c-stat1l" value="Years Experience"></div>
+<div><label>Stat 2 — number</label><input type="text" id="c-stat2n" value="100+"><label>Stat 2 — lekha</label><input type="text" id="c-stat2l" value="Projects Completed"></div>
+</div>
+<div class="row">
+<div><label>Stat 3 — number</label><input type="text" id="c-stat3n" value="75+"><label>Stat 3 — lekha</label><input type="text" id="c-stat3l" value="Websites Built"></div>
+<div></div>
+</div>
+<h2 style="font-size:16px;margin-top:20px">About</h2>
+<label>Heading — ager ongsho</label><input type="text" id="c-aboutH1" value="A developer who ">
+<label>Heading — mint (sobuj) shobdo</label><input type="text" id="c-aboutH2" value="explains">
+<label>Heading — porer ongsho</label><input type="text" id="c-aboutH3" value=" the work">
+<label>Intro paragraph</label><textarea id="c-aboutIntro">I am a WordPress developer with 3+ years of experience and 100+ projects for small businesses worldwide. My strength is WordPress done properly — a clear structure, fast loading, and a fix that starts from the cause, explained in plain language, not jargon.</textarea>
+<label>Skill tags (comma diye alada koro)</label><input type="text" id="c-aboutTags" value="WordPress, Elementor Pro, Crocoblock (JetEngine, CPT), ACF, Figma / PSD to WordPress, Theme Customization, HTML5, CSS3, Rank Math / Yoast SEO">
+<label>Checklist (proti line e ekta)</label><textarea id="c-aboutCheck">Fast, responsive sites
+Clean, SEO-ready builds
+Safe bug diagnosis
+Clear explanations</textarea>
+<h2 style="font-size:16px;margin-top:20px">Services (6 ta card)</h2>
+<div id="ctlSvc"></div>
+<label>Services er nicher note</label><input type="text" id="c-svcNote" value="Also: Migration and maintenance.">
+<h2 style="font-size:16px;margin-top:20px">Contact &amp; Social links</h2>
+<p class="note">Ei link gulo hero, contact ar footer — sob jaygay ek sathe bodle jabe.</p>
+<label>Contact email</label><input type="email" id="c-email" value="devshakilkhanofficial@gmail.com">
+<label>LinkedIn URL</label><input type="url" id="c-linkedin" value="https://www.linkedin.com/in/dev-shakil-khan/">
+<label>GitHub URL</label><input type="url" id="c-github" value="https://github.com/webshakilpro">
+<label>Facebook URL</label><input type="url" id="c-facebook" value="https://www.facebook.com/shakilkhan.563589">
+<label>WhatsApp link</label><input type="url" id="c-whatsapp" value="https://wa.me/8801902369754">
+<h2 style="font-size:16px;margin-top:20px">Footer</h2>
+<label>Footer brand description</label><textarea id="c-footDesc">WordPress Developer. I build fast business websites and fix broken, slow WordPress sites — Elementor, WooCommerce and Crocoblock. First I find the cause, then I fix it.</textarea>
+<label>Copyright line</label><input type="text" id="c-copyright" value="© 2026 Shakil Khan. All rights reserved.">
+<h2 style="font-size:16px;margin-top:20px">Section on / off</h2>
+<p class="note">Tick uthale sei section ta export kora file e lukano thakbe.</p>
+<div class="checks">
+<label><input type="checkbox" class="ctlSec" data-sec="home" checked> Hero</label>
+<label><input type="checkbox" class="ctlSec" data-sec="about" checked> About</label>
+<label><input type="checkbox" class="ctlSec" data-sec="services" checked> Services</label>
+<label><input type="checkbox" class="ctlSec" data-sec="experience" checked> Experience</label>
+<label><input type="checkbox" class="ctlSec" data-sec="skills" checked> Skills</label>
+<label><input type="checkbox" class="ctlSec" data-sec="process" checked> How I Work</label>
+<label><input type="checkbox" class="ctlSec" data-sec="portfolio" checked> Portfolio</label>
+<label><input type="checkbox" class="ctlSec" data-sec="testimonials" checked> Testimonials</label>
+<label><input type="checkbox" class="ctlSec" data-sec="blog" checked> Blog</label>
+<label><input type="checkbox" class="ctlSec" data-sec="contact" checked> Contact</label>
+</div>
+<div style="margin-top:18px"><button class="btn2" onclick="exportSite()">Export updated index.html ↓</button></div>
+<p id="ctlStatus"></p>
+</section>
+
+<section class="panel" id="projects" style="margin-top:18px">
+<h2>Recent Projects</h2>
+<p class="note">Tomar portfolio er asol kaj gulo — kono fake client, dam ba tarikh dei nai. Uporer search diye khujte parba.</p>
+<table>
+<thead><tr><th>#</th><th>Project</th><th>Type</th><th>Status</th></tr></thead>
+<tbody id="projectRows">
+<tr><td>1</td><td>Business Website</td><td>Business</td><td><span class="pill live">Live</span></td></tr>
+<tr><td>2</td><td>WooCommerce Shop</td><td>E-commerce</td><td><span class="pill live">Live</span></td></tr>
+<tr><td>3</td><td>Booking Website</td><td>Booking</td><td><span class="pill live">Live</span></td></tr>
+<tr><td>4</td><td>Landing Page</td><td>Landing</td><td><span class="pill live">Live</span></td></tr>
+<tr><td>5</td><td>Speed Optimization</td><td>Speed Fix</td><td><span class="pill done">Completed</span></td></tr>
+<tr><td>6</td><td>Logo / Brand Design</td><td>Branding</td><td><span class="pill done">Completed</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<div class="bottom">
+<section class="panel" id="todo">
+<h2>To Do List</h2>
+<p class="note">Tomar asol pending kaj gulo.</p>
+<div class="todo">
+<label><input type="checkbox"><span>CV file site e jog kora</span></label>
+<label><input type="checkbox"><span>Real testimonial quotes collect kora</span></label>
+<label><input type="checkbox"><span>shakilkhan.pro domain kena (deferred)</span></label>
+<label><input type="checkbox"><span>Fiverr restart kora (pore)</span></label>
+</div>
+</section>
+
+<section class="panel" id="services">
+<h2>Services</h2>
+<p class="note">Tomar site er 6 ta service.</p>
+<div class="svc"><b>Business Websites</b><span>→</span></div>
+<div class="svc"><b>WooCommerce Shops</b><span>→</span></div>
+<div class="svc"><b>Bug Fixes &amp; Speed</b><span>→</span></div>
+<div class="svc"><b>Booking Websites</b><span>→</span></div>
+<div class="svc"><b>Figma to WordPress</b><span>→</span></div>
+<div class="svc"><b>SEO &amp; Speed Optimization</b><span>→</span></div>
+</section>
+</div>
+
+<section class="panel" id="users" style="margin-top:18px;display:none">
+<h2>Users</h2>
+<p class="note">Sudhu Administrator ei section dekhte parbe. Notun user create korle take age mail confirm korte hobe, tarpor se login korte parbe.</p>
+<div id="userList"></div>
+<h2 style="font-size:16px;margin-top:20px">Notun user create koro</h2>
+<label style="display:block;font-size:12px;color:#6366f1;font-weight:700;margin:10px 0 4px">Email</label><input type="email" id="nuEmail" placeholder="user@example.com" style="width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:11px 13px">
+<label style="display:block;font-size:12px;color:#6366f1;font-weight:700;margin:10px 0 4px">Temporary password (kompokkhe 6 okkhor)</label><input type="password" id="nuPass" placeholder="Temporary password" style="width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:11px 13px">
+<label style="display:block;font-size:12px;color:#6366f1;font-weight:700;margin:10px 0 4px">Role</label><select id="nuRole" style="width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:11px 13px"><option value="editor">Editor</option><option value="viewer">Viewer</option><option value="admin">Administrator</option></select>
+<div style="margin-top:14px"><button class="btn2" onclick="sbCreateUser()">User create koro</button></div>
+<p id="nuMsg" style="font-size:14px;color:#0f766e"></p>
+</section>
+
+<section class="panel" id="settings" style="margin-top:18px">
+<h2>Settings</h2>
+<p class="note">Ei dashboard ekhon personal/demo view. Client, invoice ba message er real data ekhono connect kora hoy nai — tai fake client, dam ba tarikh dei nai. Tomar asol data dile pore oi section gulo jog kora jabe. Dashboard ta site er menu te link kora nai, ar kono password lock nai.</p>
+</section>
+</main>
+</div>
+<script>
+var SB_URL='https://kbdyzupzgekbuooyidof.supabase.co';
+var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtiZHl6dXB6Z2VrYnVvb3lpZG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNjU3ODYsImV4cCI6MjEwODg0MTc4Nn0.OOVyjcKAUaSseEZP-8HVJc0cYy1XmJMhh1g-SFv2l-0';
+function sbReady(){return SB_URL.indexOf('YOUR_')!==0}
+function sbHeaders(token){var h={'apikey':SB_KEY,'Content-Type':'application/json'};if(token)h['Authorization']='Bearer '+token;return h}
+function sbGetSession(){try{return JSON.parse(localStorage.getItem('sbSession')||'null')}catch(e){return null}}
+function sbSetSession(x){localStorage.setItem('sbSession',JSON.stringify(x))}
+function sbClearSession(){localStorage.removeItem('sbSession')}
+function sbShowApp(show){
+  document.getElementById('loginScreen').style.display=show?'none':'flex';
+  document.getElementById('dashApp').style.display=show?'flex':'none';
+}
+function dashShowApp(show){sbShowApp(show)}
+var sbMode='login';
+function sbToggleMode(){
+  sbMode=sbMode==='login'?'signup':'login';
+  document.getElementById('sbTitle').textContent=sbMode==='signup'?'Admin signup — email + password dao.':'Dashboard e probesh korte login koro.';
+  document.getElementById('sbPass2').style.display=sbMode==='signup'?'block':'none';
+  document.getElementById('sbModeLink').textContent=sbMode==='signup'?'Agei account ache? Login koro':'Prothombar? Admin signup koro';
+}
+function sbApplyRole(role){
+  var isAdmin=role==='admin';
+  document.getElementById('navUsers').style.display=isAdmin?'flex':'none';
+  document.getElementById('users').style.display=isAdmin?'block':'none';
+  var showCtl=role!=='viewer';
+  document.getElementById('navControl').style.display=showCtl?'flex':'none';
+  document.getElementById('control').style.display=showCtl?'block':'none';
+  if(isAdmin){sbLoadUsers()}
+}
+async function sbFetchUser(token){
+  var r=await fetch(SB_URL+'/auth/v1/user',{headers:sbHeaders(token)});
+  if(!r.ok)return null;
+  return await r.json();
+}
+async function sbEnter(){
+  var s=sbGetSession();
+  if(!s){sbShowApp(false);return}
+  var u=await sbFetchUser(s.access_token);
+  if(!u && s.refresh_token){
+    try{
+      var rr=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:sbHeaders(null),body:JSON.stringify({refresh_token:s.refresh_token})});
+      if(rr.ok){var ns=await rr.json();sbSetSession(ns);s=ns;u=await sbFetchUser(s.access_token)}
+    }catch(e){}
+  }
+  if(!u){sbClearSession();sbShowApp(false);return}
+  try{
+    var pr=await fetch(SB_URL+'/rest/v1/profiles?select=role,email&id=eq.'+u.id,{headers:sbHeaders(s.access_token)});
+    var pj=await pr.json();
+    var role=(pj[0]&&pj[0].role)||'viewer';
+    sbApplyRole(role);
+    sbShowApp(true);
+  }catch(e){sbClearSession();sbShowApp(false)}
+}
+async function sbAuth(){
+  var err=document.getElementById('sbErr'),ok=document.getElementById('sbOk');
+  err.textContent='';ok.textContent='';
+  if(!sbReady()){err.textContent='Backend ekhono connect hoy nai — Supabase project ready hole login active hobe.';return}
+  var email=document.getElementById('sbEmail').value.trim();
+  var pass=document.getElementById('sbPass').value;
+  if(!email||!pass){err.textContent='Email ar password dao.';return}
+  try{
+    if(sbMode==='signup'){
+      var p2=document.getElementById('sbPass2').value;
+      if(pass!==p2){err.textContent='Dui password mile nai.';return}
+      var rs=await fetch(SB_URL+'/auth/v1/signup',{method:'POST',headers:sbHeaders(null),body:JSON.stringify({email:email,password:pass})});
+      var js=await rs.json();
+      if(!rs.ok){err.textContent=(js.msg||js.message||'Signup hoy nai.');return}
+      ok.textContent='Signup hoyeche! Mail er confirmation link e click koro, tarpor ami tomake Administrator baniye dibo.';
+      return;
+    }
+    var rl=await fetch(SB_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:sbHeaders(null),body:JSON.stringify({email:email,password:pass})});
+    var jl=await rl.json();
+    if(!rl.ok){err.textContent=(jl.error_description||jl.msg||jl.message||'Login hoy nai.');return}
+    sbSetSession(jl);
+    await sbEnter();
+  }catch(e){err.textContent='Kichu vul hoyeche — abar chesta koro.'}
+}
+function sbLogout(){sbClearSession();sbShowApp(false)}
+async function sbForgot(){
+  var err=document.getElementById('sbErr'),ok=document.getElementById('sbOk');
+  err.textContent='';ok.textContent='';
+  var email=document.getElementById('sbEmail').value.trim();
+  if(!email){err.textContent='Age email field e email dao.';return}
+  if(!sbReady()){err.textContent='Backend ekhono connect hoy nai.';return}
+  try{
+    var r=await fetch(SB_URL+'/auth/v1/recover',{method:'POST',headers:sbHeaders(null),body:JSON.stringify({email:email})});
+    if(r.ok){ok.textContent='Password reset mail pathano hoyeche — inbox check koro.'}
+    else{err.textContent='Reset mail pathano jay nai.'}
+  }catch(e){err.textContent='Kichu vul hoyeche.'}
+}
+async function sbLoadUsers(){
+  var s=sbGetSession();if(!s)return;
+  var list=document.getElementById('userList');
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/profiles?select=id,email,role,created_at&order=created_at.desc',{headers:sbHeaders(s.access_token)});
+    var rows=await r.json();
+    if(!Array.isArray(rows)){list.textContent='User list ana jay nai.';return}
+    var html='<table><thead><tr><th>Email</th><th>Role</th><th>Change role</th></tr></thead><tbody>';
+    rows.forEach(function(u){
+      html+='<tr><td>'+u.email+'</td><td>'+u.role+'</td><td><select data-uid="'+u.id+'" onchange="sbChangeRole(this)"><option value="viewer"'+(u.role==='viewer'?' selected':'')+'>Viewer</option><option value="editor"'+(u.role==='editor'?' selected':'')+'>Editor</option><option value="admin"'+(u.role==='admin'?' selected':'')+'>Administrator</option></select></td></tr>';
+    });
+    html+='</tbody></table>';
+    list.innerHTML=html;
+  }catch(e){list.textContent='User list ana jay nai.'}
+}
+async function sbChangeRole(sel){
+  var s=sbGetSession();if(!s)return;
+  var r=await fetch(SB_URL+'/rest/v1/profiles?id=eq.'+sel.getAttribute('data-uid'),{method:'PATCH',headers:Object.assign(sbHeaders(s.access_token),{'Prefer':'return=minimal'}),body:JSON.stringify({role:sel.value})});
+  if(!r.ok){alert('Role bodlano jay nai.');sbLoadUsers()}
+}
+async function sbCreateUser(){
+  var msg=document.getElementById('nuMsg');msg.textContent='';
+  var s=sbGetSession();if(!s)return;
+  var email=document.getElementById('nuEmail').value.trim();
+  var pass=document.getElementById('nuPass').value;
+  var role=document.getElementById('nuRole').value;
+  if(!email||!pass){msg.textContent='Email ar temporary password dao.';return}
+  try{
+    var rs=await fetch(SB_URL+'/auth/v1/signup',{method:'POST',headers:sbHeaders(null),body:JSON.stringify({email:email,password:pass})});
+    var js=await rs.json();
+    if(!rs.ok){msg.textContent=(js.msg||js.message||'User create hoy nai.');return}
+    if(role!=='viewer' && js.user && js.user.id){
+      await fetch(SB_URL+'/rest/v1/profiles?id=eq.'+js.user.id,{method:'PATCH',headers:Object.assign(sbHeaders(s.access_token),{'Prefer':'return=minimal'}),body:JSON.stringify({role:role})});
+    }
+    msg.textContent='User create hoyeche ('+role+') — take mail confirm korte bolo, tarpor se login korte parbe.';
+    document.getElementById('nuEmail').value='';
+    document.getElementById('nuPass').value='';
+    sbLoadUsers();
+  }catch(e){msg.textContent='Kichu vul hoyeche.'}
+}
+sbEnter();
+document.getElementById('searchBox').addEventListener('input',function(){
+  var q=this.value.toLowerCase();
+  document.querySelectorAll('#projectRows tr').forEach(function(r){
+    r.style.display=r.textContent.toLowerCase().indexOf(q)>-1?'':'none';
+  });
+});
+document.querySelectorAll('.todo input').forEach(function(cb){
+  cb.addEventListener('change',function(){this.parentNode.classList.toggle('off',this.checked)});
+});
+document.querySelectorAll('.menu a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(){
+    document.querySelectorAll('.menu a').forEach(function(x){x.classList.remove('active')});
+    a.classList.add('active');
+  });
+});
+var CSVC=[
+["Business Websites","A responsive, SEO-ready website built around your services and customers — clear pages and clear calls to action, so visitors can contact or buy without confusion."],
+["WooCommerce Shops","Products, shop pages, checkout and delivery set up properly — so customers can order smoothly and you can manage orders easily."],
+["Bug Fixes & Speed","White screen, plugin / theme conflicts, login problems and slow loading — I diagnose the cause first, fix it safely, and check it before handing it back."],
+["Booking Websites","Booking pages for classes, services and appointments — customers can see times and book easily, and you can manage bookings from one place."],
+["Figma to WordPress","Your Figma or PSD design built as a responsive WordPress site with Elementor — careful with the design, fast to load, and easy for you to edit."],
+["SEO & Speed Optimization","Faster loading and an SEO-ready setup — so visitors stay longer, Google can find the site, and it feels smooth on phone and desktop."]];
+var ctlSvcDiv=document.getElementById('ctlSvc');
+if(ctlSvcDiv){CSVC.forEach(function(s,i){
+  var d=document.createElement('div');
+  d.innerHTML='<label>Service '+(i+1)+' — title</label><input type="text" id="c-svcT'+i+'" value="'+s[0].replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'"><label>Service '+(i+1)+' — description</label><textarea id="c-svcD'+i+'">'+s[1].replace(/&/g,'&amp;')+'</textarea>';
+  ctlSvcDiv.appendChild(d);
+});}
+function cval(id){return document.getElementById(id).value}
+function cesc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function ctlHideSection(html,sec){
+  var tagIdx=-1;
+  if(sec==='skills'){var m=html.indexOf('MY SKILLS');if(m<0)return html;tagIdx=html.lastIndexOf('<section',m)}
+  else if(sec==='testimonials'){var m2=html.indexOf('<h2>What clients say</h2>');if(m2<0)return html;tagIdx=html.lastIndexOf('<section',m2)}
+  else{var re=new RegExp('<section[^>]*id="'+sec+'"[^>]*>');var mm=html.match(re);if(!mm)return html;tagIdx=mm.index}
+  var end=html.indexOf('>',tagIdx);if(end<0)return html;
+  var tag=html.slice(tagIdx,end+1);
+  if(/style="/.test(tag)){tag=tag.replace(/style="([^"]*)"/,'style="$1;display:none"')}
+  else{tag=tag.slice(0,-1)+' style="display:none">'}
+  return html.slice(0,tagIdx)+tag+html.slice(end+1);
+}
+async function exportSite(){
+  var st=document.getElementById('ctlStatus');st.textContent='Tayar hochche...';
+  try{
+    var res=await fetch('index.html');if(!res.ok)throw new Error('index.html pawa jay nai');
+    var html=await res.text();
+    var skipped=[];
+    function rep(orig,neu,label){
+      if(orig===neu)return;
+      if(html.indexOf(orig)<0){skipped.push(label);return}
+      html=html.split(orig).join(neu);
+    }
+    function repE(orig,neu,label){rep(cesc(orig),cesc(neu),label)}
+    repE("Hello, I'm",cval('c-heroLabel'),'Hero label');
+    repE('Shakil Khan',cval('c-heroName'),'Hero nam');
+    rep("I build fast, professional WordPress websites for small businesses — and fix slow, broken sites properly.<br>First I find the cause, then I fix it. No jargon, no guesswork.",cesc(cval('c-heroSub')).replace(/\n/g,'<br>'),'Hero subtitle');
+    var cstats=[['3+','Years Experience','c-stat1n','c-stat1l'],['100+','Projects Completed','c-stat2n','c-stat2l'],['75+','Websites Built','c-stat3n','c-stat3l']];
+    cstats.forEach(function(s,i){
+      rep('<b>'+s[0]+'</b><span>'+s[1]+'</span>','<b>'+cesc(cval(s[2]))+'</b><span>'+cesc(cval(s[3]))+'</span>','Stat '+(i+1));
+    });
+    repE('A developer who ',cval('c-aboutH1'),'About heading (age)');
+    repE('explains',cval('c-aboutH2'),'About heading (mint)');
+    repE(' the work',cval('c-aboutH3'),'About heading (pore)');
+    repE('I am a WordPress developer with 3+ years of experience and 100+ projects for small businesses worldwide. My strength is WordPress done properly — a clear structure, fast loading, and a fix that starts from the cause, explained in plain language, not jargon.',cval('c-aboutIntro'),'About intro');
+    var tags=cval('c-aboutTags').split(',').map(function(t){return t.trim()}).filter(Boolean);
+    var newTags='<div class="about-tags">'+tags.map(function(t){return '<span>'+cesc(t)+'</span>'}).join('')+'</div>';
+    var mTags=html.match(/<div class="about-tags">[\s\S]*?<\/div>/);
+    if(mTags){html=html.replace(mTags[0],newTags)}else{skipped.push('About tags')}
+    var checks=cval('c-aboutCheck').split('\n').map(function(t){return t.trim()}).filter(Boolean);
+    var newCheck='<div class="check">'+checks.map(function(t){return '<div>'+cesc(t)+'</div>'}).join('')+'</div>';
+    var mCheck=html.match(/<div class="check">\s*(?:<div>[^<]*<\/div>\s*)+<\/div>/);
+    if(mCheck){html=html.replace(mCheck[0],newCheck)}else{skipped.push('About checklist')}
+    CSVC.forEach(function(s,i){
+      repE(s[0],cval('c-svcT'+i),'Service '+(i+1)+' title');
+      repE(s[1],cval('c-svcD'+i),'Service '+(i+1)+' description');
+    });
+    repE('Also: Migration and maintenance.',cval('c-svcNote'),'Services note');
+    rep('devshakilkhanofficial@gmail.com',cval('c-email'),'Contact email');
+    rep('https://www.linkedin.com/in/dev-shakil-khan/',cval('c-linkedin'),'LinkedIn');
+    rep('https://github.com/webshakilpro',cval('c-github'),'GitHub');
+    rep('https://www.facebook.com/shakilkhan.563589',cval('c-facebook'),'Facebook');
+    rep('https://wa.me/8801902369754',cval('c-whatsapp'),'WhatsApp');
+    repE('WordPress Developer. I build fast business websites and fix broken, slow WordPress sites — Elementor, WooCommerce and Crocoblock. First I find the cause, then I fix it.',cval('c-footDesc'),'Footer description');
+    repE('© 2026 Shakil Khan. All rights reserved.',cval('c-copyright'),'Copyright');
+    document.querySelectorAll('.ctlSec').forEach(function(c){if(!c.checked){html=ctlHideSection(html,c.getAttribute('data-sec'))}});
+    var blob=new Blob([html],{type:'text/html'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';document.body.appendChild(a);a.click();a.remove();
+    st.textContent='Download hoyeche! File er nam: index.html\nEi file ta amake (Neo) pathale ami check kore live kore dibo.'+(skipped.length?('\nKichu field milay nai (live file bodle gele hote pare): '+skipped.join(', ')):'');
+  }catch(e){st.textContent='Export hoy nai: '+e.message}
+}
+</script>
+</body>
+</html>

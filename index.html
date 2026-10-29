@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shakil Khan — WordPress Developer</title>
+<meta name="description" content="WordPress Developer with 3+ years experience and 100+ projects. Business websites, WooCommerce shops, bug fixes and speed optimization.">
+<link rel="canonical" href="https://webpro-blue.vercel.app/">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Shakil Khan">
+<meta name="geo.region" content="BD">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shakil Khan — WordPress Developer">
+<meta property="og:description" content="WordPress Developer with 3+ years experience and 100+ projects. Business websites, WooCommerce shops, bug fixes and speed optimization.">
+<meta property="og:url" content="https://webpro-blue.vercel.app/">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/254886022?v=4">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shakil Khan — WordPress Developer">
+<meta name="twitter:description" content="WordPress Developer with 3+ years experience and 100+ projects. Business websites, WooCommerce shops, bug fixes and speed optimization.">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/254886022?v=4">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%2300ffc2'/><text x='32' y='42' font-family='Arial' font-size='28' font-weight='bold' text-anchor='middle' fill='%23111'>K</text></svg>">
+<link rel="preload" as="image" href="https://avatars.githubusercontent.com/u/254886022?v=4">
+<meta name="theme-color" content="#0a0a0c">
+<meta property="og:title" content="Shakil Khan — WordPress Developer">
+<meta property="og:description" content="Fast, professional WordPress websites, WooCommerce shops, bug fixes and speed optimization.">
+<meta property="og:type" content="website">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0a0a0c;color:#f5f5f5;line-height:1.65;overflow-x:clip}a{color:#00ffc2;text-decoration:none}
+::selection{background:#00ffc2;color:#111}
+/* Preloader */
+#preloader{position:fixed;inset:0;background:#0a0a0c;z-index:100;display:flex;align-items:center;justify-content:center;transition:opacity .6s}
+#preloader.hide{opacity:0;pointer-events:none}
+.loader-box{text-align:center}
+.loader-name-wrap{position:relative;display:inline-block;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:clamp(18px,3.5vw,30px);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;line-height:1;white-space:nowrap}
+.loader-name-outline{color:transparent;-webkit-text-stroke:0.5px #fff}
+.loader-name-fill{position:absolute;left:0;top:0;color:#00ffc2;white-space:nowrap;overflow:hidden;width:0;transition:width .1s linear}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.18);opacity:.6}}
+/* Custom cursor - desktop only */
+#cursor{position:fixed;width:28px;height:28px;border:2px solid #00ffc2;border-radius:50%;pointer-events:none;z-index:99;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;display:none}
+@media(pointer:fine){#cursor{display:block}}
+#cursor.big{width:52px;height:52px;background:rgba(0,255,194,.18)}
+/* Reveal on scroll */
+.reveal{opacity:0;transform:translateY(28px);filter:blur(8px);transition:opacity .7s ease,transform .7s ease,filter .7s ease}
+.reveal.visible{opacity:1;transform:none;filter:blur(0)}
+header{position:sticky;top:0;z-index:80;background:rgba(10,10,12,.95);border-bottom:1px solid #222}
+.nav{max-width:1420px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-decoration:none}.logo-main{position:relative;display:inline-block;font-size:23px;font-weight:900;letter-spacing:1px;line-height:1;white-space:nowrap}.logo-circle{position:absolute;left:62%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#00ffc2;border-radius:50%;z-index:0}.logo-base{position:relative;z-index:1;color:#fff}.logo-overlay{position:absolute;left:0;top:0;z-index:2;color:#111;white-space:nowrap;clip-path:circle(30px at 62% 50%)}.logo-tag{font-size:11px;letter-spacing:0.5px;color:#fff;font-weight:800;margin-top:16px;white-space:nowrap}.logo-img{height:62px;width:auto;display:block}
+nav{display:flex;gap:26px;flex-wrap:wrap}nav a{color:#fff;font-size:15px;font-weight:500}nav a:hover,nav a.active{color:#00ffc2}
+.btn-red{display:inline-block;background:#00ffc2;color:#000;padding:11px 22px;font-size:15px;font-weight:600;transition:.2s}.btn-red:hover{background:#b3fff2;color:#000}
+.btn-outline{display:inline-block;border:1px solid #fff;color:#fff;padding:13px 26px;font-weight:700}
+.wrap{max-width:1420px;margin:0 auto;padding:0 20px}
+.label{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#00ffc2;font-weight:700}
+h2{font-size:42px;line-height:1.1;margin:12px 0;text-transform:uppercase;letter-spacing:-.5px}
+.outline-h{color:transparent;-webkit-text-stroke:1.5px #fff}
+section{padding:80px 0;position:relative}
+.glow{position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(90px);opacity:.22;pointer-events:none}
+.glow.purple{background:#7c3aed;left:-120px;top:80px}.glow.red{background:#00ffc2;right:-120px;bottom:40px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+.hero h1{font-size:clamp(34px,4.5vw,54px);line-height:1.05;margin:14px 0;text-transform:uppercase;color:#fff;letter-spacing:-1px;font-weight:800;white-space:nowrap}
+.hero .role{font-size:22px}.hero .role b{color:#00ffc2}
+.cursor-blink{display:inline-block;width:3px;height:24px;background:#00ffc2;vertical-align:middle;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p{color:#bdbdbd;max-width:520px}.hero p.hero-sub{max-width:100%;font-size:16px;line-height:1.7;color:#cfcfcf}
+.blob-wrap{position:relative;text-align:center;overflow:visible}
+.orbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.18);border-radius:50%;z-index:0;pointer-events:none}
+.orbit.inner{width:540px;height:540px}.orbit.outer{width:640px;height:640px;border-color:rgba(255,255,255,.10)}
+.orbit-icon{position:absolute;width:52px;height:52px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;text-decoration:none;z-index:2}
+.orbit-icon:hover{background:#00ffc2;color:#000;border-color:#00ffc2}.orbit-icon svg{display:block;width:24px;height:24px}
+.blob-wrap .blob{position:relative;z-index:1}
+@media(max-width:900px){.orbit.inner{width:300px;height:300px}.orbit.outer{width:360px;height:360px}.orbit-icon{width:44px;height:44px;font-size:13px}}
+.blob-outline{position:absolute;inset:8% 6%;border:1px solid #fff;border-radius:50%;transform:rotate(-8deg)}
+.blob{width:100%;max-width:420px;height:520px;object-fit:cover;object-position:top center;border-radius:58% 42% 55% 45%/45% 55% 42% 58%;background:#00ffc2;display:block;margin:0 auto;position:relative}
+.play{display:inline-flex;align-items:center;gap:8px;color:#e5e5e5;font-weight:600;font-size:15px;margin-left:18px}.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px}.play i{width:36px;height:36px;border:1px solid #888;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px}
+.learn-more{position:relative;display:inline-block;cursor:pointer;outline:none;border:0;vertical-align:middle;text-decoration:none;background:transparent;padding:0;font-size:15px;font-family:inherit;width:12.5rem;height:auto}
+.learn-more .circle{transition:all .45s cubic-bezier(.65,0,.076,1);position:relative;display:block;margin:0;width:3rem;height:3rem;background:#00ffc2;border-radius:1.625rem}
+.learn-more .circle .icon{transition:all .45s cubic-bezier(.65,0,.076,1);position:absolute;top:0;bottom:0;margin:auto;background:#000}
+.learn-more .circle .icon.arrow{transition:all .45s cubic-bezier(.65,0,.076,1);left:.625rem;width:1.125rem;height:.125rem;background:none}
+.learn-more .circle .icon.arrow::before{position:absolute;content:"";top:-.29rem;right:.0625rem;width:.625rem;height:.625rem;border-top:.125rem solid #000;border-right:.125rem solid #000;transform:rotate(45deg)}
+.learn-more .button-text{transition:all .45s cubic-bezier(.65,0,.076,1);position:absolute;top:0;left:0;right:0;bottom:0;padding:.75rem 0;margin:0 0 0 3.2rem;color:#fff;font-weight:700;line-height:1.6;text-align:center;text-transform:uppercase}
+.learn-more:hover .circle{width:100%;border-radius:6px}
+.learn-more:hover .circle .icon.arrow{background:#000;transform:translate(1rem,0)}
+.learn-more:hover .button-text{color:#000}
+
+.svc-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding-bottom:20px}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.card3{border:1px solid #333;padding:26px}.card3 h3{margin:12px 0 6px}.card3 p{color:#bdbdbd;margin:0}.card3 .ic{font-size:44px;color:#00ffc2}.card3 .ic svg{display:block;width:44px;height:44px}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
+.check{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}.check div{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;display:flex;align-items:center}.check div::before{content:"✓";color:#00ffc2;border:1px solid #00ffc2;background:rgba(0,255,194,.12);border-radius:50%;width:22px;height:22px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:12px;margin-right:10px}.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.about-tags span{font-size:13px;color:#e5e5e5;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);padding:6px 12px;border-radius:20px;transition:background .3s,border-color .3s}.about-tags span:hover{background:rgba(0,255,194,.12);border-color:rgba(0,255,194,.35)}.check div{transition:border-color .3s,transform .3s}.check div:hover{border-color:rgba(0,255,194,.35);transform:translateY(-2px)}
+.marquee-band{background:#00ffc2;color:#111;overflow:hidden;white-space:nowrap;padding:12px 0;font-size:22px;font-weight:900;text-transform:uppercase}
+.marquee-track{display:inline-block;animation:scroll 32s linear infinite}.marquee-band:hover .marquee-track{animation-play-state:paused}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-track span{margin:0 18px}.marquee-track .out{color:transparent;-webkit-text-stroke:1.5px #111}
+.timeline{position:relative;max-width:820px;margin:40px auto 0}.timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#333}.timeline-progress{position:absolute;left:50%;top:0;width:3px;margin-left:-1px;height:0;background:#00ffc2;box-shadow:0 0 8px rgba(0,255,194,.5)}
+.t-item{width:46%;margin-bottom:36px;position:relative;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 22px;box-sizing:border-box;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:border-color .3s,transform .3s,box-shadow .3s}.t-item:hover{border-color:rgba(0,255,194,.35);transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.35)}.t-item.left{margin-right:auto;text-align:right}.t-item.right{margin-left:auto}.t-item::after{content:"";position:absolute;top:28px;width:12px;height:12px;background:transparent;border:2px solid #555;border-radius:50%;transition:background .4s,border-color .4s,box-shadow .4s}.t-item.active::after{background:#00ffc2;border-color:#00ffc2;box-shadow:0 0 0 4px rgba(0,255,194,.15),0 0 12px rgba(0,255,194,.6)}.t-item.left::after{right:-6.5%}.t-item.right::after{left:-6.5%}
+.t-item h3{margin:8px 0 4px;font-size:19px;line-height:1.3}.t-item p{color:#bdbdbd;margin:4px 0;font-size:15px;line-height:1.6}.t-item small{display:inline-block;color:#00ffc2;letter-spacing:1.5px;font-size:12px;font-weight:600;text-transform:uppercase;background:rgba(0,255,194,.12);padding:4px 10px;border-radius:20px}
+.skills-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}.skills-grid>div:first-child{position:sticky;top:110px;align-self:start}.bar{position:sticky}.bar:nth-child(1){top:110px}.bar:nth-child(2){top:128px}.bar:nth-child(3){top:146px}.bar:nth-child(4){top:164px}
+.bar{margin-bottom:18px;background:#141414;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 20px;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:border-color .3s,transform .3s}.bar:hover{border-color:rgba(0,255,194,.35);transform:translateY(-2px)}.skill-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.skill-logo{height:28px;width:auto}.skill-name{font-weight:600;text-transform:uppercase;letter-spacing:1px;font-size:14px}.bar label{display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;letter-spacing:1px;font-size:14px;font-weight:600}.bar .track{height:8px;background:#1e1e1e;margin-top:10px;border-radius:4px;overflow:hidden}.bar .fill{height:100%;background:linear-gradient(90deg,#00d9a0,#00ffc2);width:0;transition:width 1.2s ease;border-radius:4px;box-shadow:0 0 10px rgba(0,255,194,.35)}.bar .tag{color:#00ffc2;font-weight:700;font-size:11px;letter-spacing:1.5px;background:rgba(0,255,194,.12);padding:3px 10px;border-radius:20px}
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.port-grid .col2{margin-top:44px}
+.tile{height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(180deg,transparent,#000),linear-gradient(135deg,#0f2e2a,#17181c);border:1px solid #333}.tile.v2{background:linear-gradient(180deg,transparent,#000),linear-gradient(135deg,#1d2a1a,#17181c)}.tile.v3{background:linear-gradient(180deg,transparent,#000),linear-gradient(135deg,#1d2436,#17181c)}.tile h3{margin:0}.tile p{color:#bdbdbd;margin:4px 0}
+.testi-wrap{overflow:hidden}.testi-track{display:flex;gap:18px;transition:transform .5s ease}.testi{flex:0 0 32%;background:#141414;border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:32px 26px 28px;text-align:center;position:relative;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}.testi:hover{transform:translateY(-4px);border-color:rgba(0,255,194,.35);box-shadow:0 18px 36px rgba(0,0,0,.35)}.testi .av{width:64px;height:64px;border-radius:50%;background:#00ffc2;color:#111;display:flex;align-items:center;justify-content:center;font-weight:900;margin:-58px auto 12px;border:3px solid #00ffc2;box-shadow:0 0 0 4px #0a0a0c;object-fit:cover}.testi p{color:#bdbdbd;font-size:14px}.testi p:first-of-type{color:#fff;font-weight:700;font-size:15px;margin:0 0 10px}.testi p:last-of-type{color:#cfcfcf;font-size:15px;line-height:1.7;margin:0}.testi::before{content:"\201C";position:absolute;top:12px;left:20px;font-size:52px;line-height:1;color:rgba(0,255,194,.22);font-family:Georgia,serif}.testi-sub{color:#bdbdbd;font-size:16px;line-height:1.7;margin:6px 0 20px;max-width:760px}.controls .sqbtn{border-radius:50%;border-color:rgba(255,255,255,.25);transition:border-color .2s,color .2s,background .2s}.controls .sqbtn:hover{border-color:#00ffc2;color:#00ffc2;background:rgba(0,255,194,.08)}#testiDots span{border-radius:50%;border-color:rgba(255,255,255,.4)}#testiDots span.on{width:26px;border-radius:999px}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:20px}.sqbtn{width:44px;height:44px;border:1px solid #fff;background:transparent;color:#fff;font-size:18px;cursor:pointer}.dots span{display:inline-block;width:10px;height:10px;border:1px solid #fff;margin:0 4px}.dots span.on{background:#00ffc2;border-color:#00ffc2}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.blog{border:1px solid #333;color:inherit;text-decoration:none;display:block}.blog-visual img{width:100%;height:250px;object-fit:cover;display:block}.blog-meta{color:#888;font-size:14px;margin:0 0 8px}.blog-body h3 a{color:inherit;text-decoration:none}.blog-btn{display:inline-block;margin-top:14px;border:1px solid #00ffc2;color:#00ffc2;padding:8px 16px;text-decoration:none;border-radius:8px}.blog-visual{height:auto;background:linear-gradient(135deg,#0f2e2a,#17181c);padding:0}.blog-body{padding:20px}.blog-body h3{margin:0}.blog-body p{color:#bdbdbd}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px}.subscribe-card{background:#141414;border:1px solid rgba(255,255,255,.10);border-top:3px solid #00ffc2;border-radius:16px;padding:32px;box-shadow:0 12px 32px rgba(0,0,0,.35);transform:translateY(72px)}.subscribe-form{display:flex;flex-direction:row;gap:10px;align-items:center}.subscribe-form input[type=email]{flex:1;min-width:0;height:52px;margin:0;box-sizing:border-box;background:#0a0a0c;border:1px solid #333;border-radius:8px;padding:14px 16px;color:#fff;font-size:15px}.subscribe-form input[type=email]:focus{outline:none;border-color:#00ffc2}.subscribe-form .btn-red{display:inline-flex;align-items:center;justify-content:center;height:52px;margin:0;box-sizing:border-box;border:none;border-radius:8px;padding-top:0;padding-bottom:0}.sub-note{font-size:13px;color:#00ffc2;margin:12px 0 0}
+.contact-row{display:flex;gap:14px;margin-bottom:16px;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;transition:border-color .3s}.contact-row:hover{border-color:rgba(0,255,194,.35)}.contact-row .circ{width:52px;height:52px;flex:0 0 52px;background:#00ffc2;color:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900}.contact-row .circ svg{width:22px;height:22px;display:block}
+form input,form textarea{width:100%;background:transparent;border:none;border-bottom:1px solid #555;color:#fff;padding:12px 2px;margin-bottom:18px;font:inherit}form input:focus,form textarea:focus{outline:none;border-bottom-color:#00ffc2}
+footer{background:#0b0b0e;border-top:1px solid rgba(0,255,194,.35);padding:22px 0 0}.foot{max-width:1420px;margin:0 auto;padding:18px 20px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.soc a{width:38px;height:38px;background:#222;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;margin-left:8px;font-size:13px}.soc a:first-child{margin-left:0}
+#topbtn{position:fixed;right:20px;bottom:20px;width:60px;height:60px;border-radius:50%;border:1px solid #333;background:#0a0a0c;color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:30;padding:0;box-shadow:0 6px 20px rgba(0,0,0,.5);overflow:hidden}#topbtn svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}#topbtn .top-center{position:relative;display:flex;flex-direction:column;align-items:center;line-height:1}#topbtn .top-arrow{font-size:16px;color:#fff}#topbtn .top-pct{font-size:10px;font-weight:700;color:#00ffc2;margin-top:1px}
+#topbtn.show{display:flex}.wa-float{position:fixed;right:20px;bottom:20px;transition:bottom .45s ease;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;z-index:31;box-shadow:0 8px 24px rgba(0,0,0,.45);text-decoration:none}.wa-float svg{width:30px;height:30px;display:block}.wa-float:hover{background:#1eb857}.wa-float.lifted{bottom:94px}
+.placeholder{border:1px dashed #00ffc2;padding:10px 14px;font-size:13px;color:#b3fff2;margin:12px 0}
+@media(max-width:900px){nav{display:none}.hero,.about-grid,.skills-grid,.contact-grid{grid-template-columns:1fr}.skills-grid>div:first-child{position:static}.hero h1{font-size:38px}.cards3,.port-grid,.blog-grid{grid-template-columns:1fr}.port-grid .col2{margin-top:0}.timeline::before{left:8px}.timeline-progress{left:7px;margin-left:0}.t-item{width:calc(100% - 28px);margin-left:28px;text-align:left}.t-item.left{text-align:left}.t-item.left::after{left:-22px;right:auto}.t-item.right::after{left:-22px}.testi{flex-basis:100%}}
+
+/* React-Bits-style animations, written in original vanilla CSS/JS */
+/* Split / blur hero letters */
+.split-char{display:inline-block;opacity:0;transform:translateY(22px);filter:blur(6px);animation:charIn .7s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes charIn{to{opacity:1;transform:none;filter:blur(0)}}
+/* Shiny sweeping text */
+.shiny-text{background:linear-gradient(110deg,#00ffc2 20%,#ffffff 40%,#00ffc2 60%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shineMove 3.5s linear infinite}
+@keyframes shineMove{to{background-position:200% 0}}
+/* Glare sweep on cards / tiles / blog cards */
+.card3,.tile,.blog{position:relative;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
+.card3::after,.tile::after,.blog::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(105deg,transparent,rgba(0,255,194,.18),transparent);transform:skewX(-20deg);transition:left .6s ease;pointer-events:none}
+.card3:hover::after,.tile:hover::after,.blog:hover::after{left:130%}
+.card3:hover,.tile:hover{transform:translateY(-6px);border-color:#00ffc2}
+/* Magnetic buttons */
+.btn-red,.btn-outline{transition:transform .3s ease,background .2s}
+/* Rotating circular badge */
+.circ-badge-wrap{position:absolute;top:-12px;right:6px;width:110px;height:110px;z-index:2}.circ-badge{width:100%;height:100%;animation:spinBadge 14s linear infinite}.circ-arrow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#00ffc2;font-size:26px;font-weight:900;line-height:1;z-index:3}
+.circ-badge text{fill:#00ffc2;font-size:11.5px;letter-spacing:2px;font-weight:700}
+@keyframes spinBadge{to{transform:rotate(360deg)}}
+@media(max-width:900px){.circ-badge-wrap{display:none}}
+/* Click sparks */
+.spark{position:fixed;width:6px;height:6px;background:#00ffc2;border-radius:50%;pointer-events:none;z-index:100;animation:sparkFly .6s ease-out forwards}
+@keyframes sparkFly{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+/* ===== Responsive fix: desktop / laptop / tablet / phone ===== */
+img{max-width:100%}
+h2{font-size:clamp(28px,4.5vw,42px)}
+.hero h1{font-size:clamp(30px,8.5vw,66px)}
+.menu-btn{display:none;background:transparent;border:1px solid #444;color:#fff;width:44px;height:44px;font-size:22px;cursor:pointer;line-height:1}
+@media(max-width:1280px){
+  .wrap,.nav,.foot{max-width:100%}
+  .hero{gap:28px}
+  .blob{height:460px}
+  section{padding:68px 0}
+}
+@media(max-width:1024px){
+  section{padding:60px 0}
+  .hero{grid-template-columns:1fr .9fr;gap:24px}
+  .hero h1{font-size:clamp(30px,6vw,54px)}
+  .cards3,.port-grid,.blog-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-head{grid-template-columns:.6fr 1.4fr}
+  .about-grid,.skills-grid,.contact-grid{gap:28px}
+  .tile{height:300px}
+}
+@media(max-width:900px){
+  .nav{flex-wrap:wrap;padding:12px 16px}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center;margin-left:auto}
+  header .btn-red{display:none}
+  nav#mainNav{display:none;width:100%;flex-direction:column;gap:0;border-top:1px solid #222;margin-top:8px;padding-top:8px}
+  header.menu-open nav#mainNav{display:flex}
+  nav#mainNav a{display:block;padding:12px 4px;border-bottom:1px solid #1c1c1c}
+  .hero,.about-grid,.skills-grid,.contact-grid{grid-template-columns:1fr}
+  .svc-head{grid-template-columns:1fr;gap:12px}
+  .cards3,.port-grid,.blog-grid{grid-template-columns:1fr}
+  .port-grid .col2{margin-top:0}
+  section{padding:52px 0}
+  .hero{padding-top:36px!important}
+  .blob{height:420px;max-width:360px}
+  .blob-outline{inset:6% 8%}
+  .contact-row{overflow-wrap:anywhere}
+  .contact-row a{overflow-wrap:anywhere;word-break:break-word}
+  .marquee-band{font-size:18px}
+  .testi{flex-basis:100%}
+  #topbtn{width:56px;height:56px;right:16px;bottom:16px}#topbtn .top-arrow{font-size:18px}#topbtn .top-pct{font-size:11px}.wa-float{right:16px;bottom:16px;width:52px;height:52px}.wa-float.lifted{bottom:86px}.wa-float svg{width:28px;height:28px}
+}
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  .nav{padding:10px 16px}
+  .logo-main{font-size:19px}.logo-img{height:52px}
+  .logo-circle{width:48px;height:48px}
+  .logo-overlay{clip-path:circle(24px at 62% 50%)}
+  .logo-tag{font-size:10px;letter-spacing:0.5px;margin-top:12px}
+  h2{font-size:clamp(26px,7vw,32px)}
+  .hero h1{font-size:clamp(28px,10vw,38px);white-space:nowrap}
+  .hero .role{font-size:19px}
+  section{padding:44px 0}
+  .check{grid-template-columns:1fr}
+  .blob{height:340px;max-width:300px}
+  .play{margin-left:0;margin-top:14px;display:inline-flex}
+  .hero p a.btn-red{display:inline-block}
+  .cards3,.port-grid,.blog-grid{grid-template-columns:1fr}
+  .tile{height:280px}
+  .foot{flex-direction:column;text-align:left;justify-content:flex-start;align-items:flex-start}
+  .marquee-band{font-size:16px;padding:10px 0}
+  .glow{width:260px;height:260px}
+}
+@media(max-width:400px){
+  .hero h1{font-size:27px}
+  .logo-main{font-size:17px}.logo-img{height:48px}
+  .logo-circle{width:42px;height:42px}
+  .logo-overlay{clip-path:circle(21px at 62% 50%)}
+  .blob{height:300px;max-width:260px}
+  .btn-red,.btn-outline{padding:11px 18px}
+}
+/* ===== All-phone hardening: no horizontal scroll, no overflow ===== */
+html{overflow-x:clip;-webkit-text-size-adjust:100%}
+.hero>*,.about-grid>*,.skills-grid>*,.contact-grid>*,.port-grid>*,.cards3>*,.blog-grid>*{min-width:0}
+.tile h3,.blog-body h3,.card3 h3{overflow-wrap:anywhere}
+.testi-wrap{padding-top:36px}
+form input,form textarea{font-size:16px}
+@media(max-width:900px){
+  nav#mainNav a{padding:14px 4px}
+}
+@media(max-width:480px){
+  .wrap{padding:0 14px}
+  .hero h1{font-size:clamp(26px,9vw,34px)}
+  .blob{height:320px;max-width:280px}
+  .contact-row{flex-wrap:nowrap}
+  .contact-row .circ{width:46px;height:46px;flex-basis:46px;font-size:14px}
+}
+@media(max-width:360px){
+  .wrap{padding:0 12px}
+  .nav{padding:10px 12px;gap:10px}
+  .hero h1{font-size:26px}
+  .logo-main{font-size:16px}
+  .logo-tag{font-size:9px;letter-spacing:0.5px}
+  .blob{height:290px;max-width:250px}
+  section{padding:38px 0}
+  .tile{height:260px}
+}
+@media(max-height:500px) and (orientation:landscape){
+  section{padding:32px 0}
+  .hero{padding-top:20px!important}
+  .blob{height:240px!important}
+}
+/* ===== Phone look + testimonial pagination fix ===== */
+@media(max-width:900px){
+  .logo-circle{width:36px;height:36px}
+  .logo-overlay{clip-path:circle(18px at 62% 50%)}
+  .logo-tag{margin-top:10px}
+  .hero-actions{flex-wrap:nowrap;gap:14px}
+  .hero .btn-red{display:inline-block;width:auto;margin-bottom:0;flex:0 0 auto;white-space:nowrap}
+  .hero .play{display:inline-flex;margin-left:0;margin-top:0;flex:0 1 auto;white-space:nowrap}
+  .blob-outline{display:none}
+  .blob{border-radius:28px;height:auto!important;aspect-ratio:4/5;max-width:100%;width:100%;object-position:top center}
+  .blob-wrap{max-width:100%;width:100%;margin-left:auto;margin-right:auto}
+  .about-grid{gap:24px}
+  #services .card3 .ic{font-size:36px}
+  #services .card3 .ic svg{width:36px;height:36px}
+  #process .card3 .ic{font-size:36px}
+  .controls{flex-wrap:wrap;gap:14px;justify-content:center;text-align:center}
+  .sqbtn{width:48px;height:48px}
+  .dots span{width:14px;height:14px;margin:0 6px;cursor:pointer}
+  .testi{padding:22px 18px}
+}
+@media(max-width:480px){
+  .blob,.blob-wrap{max-width:100%}
+  .controls{flex-direction:column;align-items:center}
+}
+/* Testimonial pagination dots hidden on phone only; arrows and swipe still work */
+@media(max-width:640px){
+  .dots{display:none}
+}
+@media(max-width:360px){
+  .blob,.blob-wrap{max-width:100%}
+  .logo-circle{width:32px;height:32px}
+  .logo-overlay{clip-path:circle(16px at 62% 50%)}
+  .logo-tag{margin-top:10px}
+  .hero-actions{gap:10px}
+  .hero .btn-red{padding:10px 14px;font-size:14px}
+  .hero .play{font-size:14px;gap:6px}
+  .hero .play i{width:36px;height:36px}
+}
+/* ===== Professional polish: rhythm, depth, focus, footer ===== */
+header{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+section[id]{scroll-margin-top:90px}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #00ffc2;outline-offset:3px}
+.btn-red,.btn-outline{border-radius:6px}
+.btn-red,.btn-outline,.blog-btn{position:relative;z-index:2;overflow:hidden;transition:all .5s ease}
+.btn-red::after,.btn-outline::after,.blog-btn::after{content:"";width:100%;height:100%;position:absolute;bottom:-100%;left:0;border-radius:50%;z-index:0;transition:all .5s ease}
+.btn-red::after{background:#fff}
+.btn-outline::after,.blog-btn::after{background:#00ffc2}
+.btn-red span,.btn-outline span,.blog-btn span{position:relative;z-index:1}
+.btn-red:hover{color:#000}
+.btn-outline:hover,.blog-btn:hover{color:#000}
+.btn-red:hover::after,.btn-outline:hover::after,.blog-btn:hover::after{bottom:0;border-radius:0}
+
+.card3,.tile,.blog,.testi{border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.hero-stats{display:flex;gap:32px;margin-top:30px;padding-top:22px;border-top:1px solid #222;flex-wrap:wrap}
+.hero-stats b{display:block;font-size:30px;line-height:1;color:#fff}
+.hero-stats span{color:#888;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:32px}
+.foot-grid{display:grid;grid-template-columns:1.3fr .8fr 1fr 1.2fr;gap:36px;padding:60px 0 36px}.foot-grid .subscribe-card{transform:none;background:transparent;border:none;box-shadow:none;padding:0}.contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}.contact-cards .contact-row{flex-direction:column;align-items:center;text-align:center;padding:28px 20px;margin-bottom:0}.contact-cards .contact-row .circ{margin-bottom:12px}@media(max-width:900px){.contact-cards{grid-template-columns:1fr}}.foot-logo{height:64px;width:auto;display:block;margin-bottom:12px}
+.foot-grid a{color:#bdbdbd}
+.foot-grid a:hover{color:#00ffc2}.foot-grid h3{font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#fff;position:relative;padding-bottom:12px}.foot-grid h3{font-size:14px;letter-spacing:1.5px;padding-bottom:14px}.foot-grid a::before{content:"\203A";color:#00ffc2;margin-right:8px}.foot span{color:#888;font-size:14px}.soc a{width:44px;height:44px;background:transparent;border:1px solid rgba(255,255,255,.15)}.soc a:hover{border-color:#00ffc2;background:rgba(0,255,194,.10)}.foot-grid h3::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:2px;background:#00ffc2}.foot-grid>div:first-child p{max-width:430px;line-height:1.7}.foot-grid a{transition:color .2s}.soc a{transition:background .2s,color .2s}.soc a:hover{background:rgba(0,255,194,.12);color:#00ffc2}.soc a svg{display:block}.foot-center{text-align:center;padding:56px 0 32px}footer::before{display:none}.foot-center{padding:64px 0 40px}.foot-mail{display:inline-block;margin-top:16px;color:#bdbdbd;font-size:15px;transition:color .2s}.foot-mail:hover{color:#00ffc2}.foot-nav{gap:10px 18px;margin-top:28px}.foot-nav a{font-size:13px;letter-spacing:1.2px;text-transform:uppercase}.fsep{color:#00ffc2}.foot-center .foot-logo{margin:0 auto 16px}.foot-center p{margin:0 auto;color:#bdbdbd;line-height:1.7;max-width:560px}.foot-center .soc{display:flex;justify-content:center;gap:10px;margin-top:22px}.foot-center .soc a{margin-left:0}.foot-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 28px;margin-top:26px}.foot-nav a{color:#bdbdbd;transition:color .2s}.foot-nav a:hover{color:#00ffc2}.foot{justify-content:space-between}
+.placeholder{border:none;background:rgba(255,255,255,.04);color:#888;border-radius:8px}
+@media(max-width:1024px){.cards4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.foot-grid{grid-template-columns:1fr;gap:24px;padding-top:32px}.hero-stats{gap:22px}}
+@media(max-width:640px){.cards4{grid-template-columns:1fr}}
+/* ===== Off-canvas phone menu ===== */
+.menu-close,.menu-cta{display:none}
+#menuOverlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:70}
+@media(max-width:900px){
+  .menu-close{display:flex;align-items:center;justify-content:center;align-self:flex-end;width:44px;height:44px;background:transparent;border:1px solid #444;color:#fff;font-size:20px;cursor:pointer;margin-bottom:8px}
+  .menu-cta{display:block;text-align:center;margin-top:22px;color:#000}
+  .menu-cta:hover{color:#000}
+  nav#mainNav a.menu-cta,nav#mainNav a.menu-cta:hover{color:#000}
+  nav#mainNav{display:flex;position:fixed;top:0;right:0;height:100dvh;width:min(320px,85vw);flex-direction:column;gap:0;background:#0a0a0c;border-left:1px solid #222;padding:20px;z-index:90;margin-top:0;border-top:none;transform:translateX(105%);transition:transform .32s ease;overflow-y:auto}
+  nav#mainNav a{color:#fff}
+  nav#mainNav a.active{color:#00ffc2}
+  body.menu-open nav#mainNav{transform:translateX(0)}
+  body.menu-open #menuOverlay{opacity:1;pointer-events:auto}
+  nav#mainNav a{font-size:17px}
+}
+/* Phone: hero stats in one line — forced, so they can never wrap to a second row */
+@media(max-width:900px){.hero-stats{flex-wrap:nowrap!important;gap:10px;width:100%}.hero-stats>*{flex:1 1 0!important;min-width:0}.hero-stats b{font-size:22px}.hero-stats span{display:block;font-size:10px;letter-spacing:0;line-height:1.35;overflow-wrap:anywhere}}
+@media(max-width:480px){.hero-stats{gap:10px}.hero-stats b{font-size:20px}.hero-stats span{font-size:9px}}
+@media(max-width:360px){.hero-stats{gap:10px}.hero-stats b{font-size:18px}.hero-stats span{font-size:8px}}
+.tile img.mock{width:100%;height:auto;object-fit:contain;background:#0d0d0d;border-radius:8px;margin-bottom:14px;display:block}
+.tile img.mock-logo{width:100%;height:170px;object-fit:contain;border-radius:8px;margin-bottom:14px;display:block;background:#0d0d0d;padding:20px;box-sizing:border-box}
+.tile .speed-mock{width:100%;height:170px;border-radius:8px;margin-bottom:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0d0d0d}
+.tile .speed-mock b{font-size:56px;color:#00ffc2}
+.tile .speed-mock span{color:#bdbdbd}
+
+.mock-frame{background:#0a0a0a;border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.mock-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#141414;border-bottom:1px solid #222}
+.mock-dot{width:9px;height:9px;border-radius:50%;background:#333}
+.mock-url{margin-left:10px;font-size:11px;color:#888;background:#0a0a0a;border:1px solid #222;border-radius:20px;padding:3px 10px}
+.mock-body{padding:18px}
+.mock-hero{font-size:20px;font-weight:800;line-height:1.25;margin:0 0 8px}
+.mock-sub{font-size:12px;color:#bdbdbd;margin:0 0 12px}
+.mock-btn{display:inline-block;background:#00ffc2;color:#000;font-size:12px;font-weight:700;border-radius:20px;padding:6px 14px}
+.mock-row{display:flex;gap:10px;margin-top:14px}
+.mock-card{flex:1;background:#141414;border:1px solid #222;border-radius:8px;padding:10px;font-size:11px;color:#bdbdbd}
+.mock-card b{display:block;color:#fff;font-size:12px;margin-bottom:4px}
+.mock-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px}
+.mock-cal span{background:#141414;border:1px solid #222;border-radius:6px;text-align:center;font-size:11px;padding:6px 0;color:#bdbdbd}
+.mock-cal span.on{background:#00ffc2;color:#000;font-weight:700;border-color:#00ffc2}
+@media(max-width:900px){.bar:nth-child(1){top:84px}.bar:nth-child(2){top:102px}.bar:nth-child(3){top:120px}.bar:nth-child(4){top:138px}}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Shakil Khan","jobTitle":"WordPress Developer","url":"https://webpro-blue.vercel.app/","image":"https://avatars.githubusercontent.com/u/254886022?v=4","sameAs":["https://www.linkedin.com/in/dev-shakil-khan/","https://github.com/webshakilpro"],"knowsAbout":["WordPress","Elementor Pro","WooCommerce","Crocoblock","Bug Fixing","Speed Optimization","SEO"]}
+</script>
+</head>
+<body>
+<div id="preloader"><div class="loader-box"><div class="loader-name-wrap"><span class="loader-name-outline">SHAKIL KHAN</span><span class="loader-name-fill" id="loaderNameFill" aria-hidden="true">SHAKIL KHAN</span></div></div></div>
+<div id="cursor"></div>
+<header>
+  <div class="nav">
+    <a class="logo" href="/" aria-label="Shakil Khan"><img class="logo-img" src="/shakil-logo-claude.svg" alt="Shakil khan"></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="mainNav">☰</button>
+    <nav id="mainNav">
+      <button class="menu-close" id="menuClose" aria-label="Close menu">✕</button>
+      <a href="#home" class="active">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About Me</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+      <a class="btn-red menu-cta" href="#contact"><span>Contact Us →</span></a>
+    </nav>
+    <a class="btn-red" href="#contact"><span>Contact Us →</span></a>
+  </div>
+</header>
+<main>
+<div id="menuOverlay"></div>
+
+<div class="wrap">
+  <section class="hero" id="home" style="padding-top:60px">
+    <div class="glow red"></div>
+    <div class="reveal">
+      <span class="label">Hello, I'm</span>
+      <h1>Shakil Khan</h1>
+      <p class="role">I'm a <b id="typed">WordPress Developer</b><span class="cursor-blink"></span></p>
+      <p class="hero-sub">I build fast, professional WordPress websites for small businesses — and fix slow, broken sites properly.<br>First I find the cause, then I fix it. No jargon, no guesswork.</p>
+      <p class="hero-actions"><a class="btn-red" href="#contact"><span>Download CV</span></a><a class="learn-more" href="#about"><span class="circle" aria-hidden="true"><span class="icon arrow"></span></span><span class="button-text">See How I Work</span></a></p>
+      <div class="hero-stats">
+        <div><b>3+</b><span>Years Experience</span></div>
+        <div><b>100+</b><span>Projects Completed</span></div>
+        <div><b>75+</b><span>Websites Built</span></div>
+      </div>
+    </div>
+    <div class="blob-wrap reveal"><div class="orbit outer" aria-hidden="true"></div><div class="orbit inner" aria-hidden="true"></div><a class="orbit-icon" style="right:42px;top:28%" href="https://www.linkedin.com/in/dev-shakil-khan/" aria-label="LinkedIn" target="_blank" rel="noopener">in</a><a class="orbit-icon" style="right:14px;top:46%" href="https://github.com/webshakilpro" aria-label="GitHub" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="orbit-icon" style="right:42px;top:64%" href="https://www.facebook.com/shakilkhan.563589" aria-label="Facebook" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <img class="blob" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/images/hero-suit-cutout-fade.png" alt="Shakil Khan — WordPress Developer" style="height:auto;max-width:500px;object-fit:contain;background:none;border-radius:0;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55))">
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="svc-head reveal">
+      <span class="label">Services</span>
+      <h2 style="margin:0">What I do<br>for your business</h2>
+    </div>
+    <div class="cards3">
+      <div class="card3 reveal"><div class="ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00ffc2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></div><h3>Business Websites</h3><p>A responsive, SEO-ready website built around your services and customers — clear pages and clear calls to action, so visitors can contact or buy without confusion.</p></div>
+      <div class="card3 reveal"><div class="ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00ffc2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 12.2A2 2 0 0 0 9.4 18h8.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="21" r="1.2"/><circle cx="18" cy="21" r="1.2"/></svg></div><h3>WooCommerce Shops</h3><p>Products, shop pages, checkout and delivery set up properly — so customers can order smoothly and you can manage orders easily.</p></div>
+      <div class="card3 reveal"><div class="ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00ffc2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3>Bug Fixes &amp; Speed</h3><p>White screen, plugin / theme conflicts, login problems and slow loading — I diagnose the cause first, fix it safely, and check it before handing it back.</p></div>
+      <div class="card3 reveal"><div class="ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00ffc2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div><h3>Booking Websites</h3><p>Booking pages for classes, services and appointments — customers can see times and book easily, and you can manage bookings from one place.</p></div>
+      <div class="card3 reveal"><div class="ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00ffc2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div><h3>Figma to WordPress</h3><p>Your Figma or PSD design built as a responsive WordPress site with Elementor — careful with the design, fast to load, and easy for you to edit.</p></div>
+      <div class="card3 reveal"><div class="ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00ffc2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div><h3>SEO &amp; Speed Optimization</h3><p>Faster loading and an SEO-ready setup — so visitors stay longer, Google can find the site, and it feels smooth on phone and desktop.</p></div>
+    </div>
+    <p style="color:#888">Also: Migration and maintenance.</p>
+  </section>
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="blob-wrap reveal">
+        <div class="circ-badge-wrap"><svg class="circ-badge" viewBox="0 0 110 110" aria-hidden="true"><defs><path id="circPath" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs><text><textPath href="#circPath">WORDPRESS • WOOCOMMERCE • SPEED • </textPath></text></svg><span class="circ-arrow">↗</span></div>
+        <img class="blob" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/images/about-cutout-fade.png" alt="Shakil Khan" style="height:auto;max-width:500px;object-fit:contain;background:none;border-radius:0;filter:drop-shadow(0 24px 40px rgba(0,0,0,.55));transform:translateY(-80px)">
+      </div>
+      <div class="reveal">
+        <span class="label">About Me</span>
+        <h2>A developer who <span style="color:#00ffc2">explains</span> the work</h2>
+        <p style="border-left:3px solid #00ffc2;padding-left:16px;line-height:1.7;color:#d5d5d5">I am a WordPress developer with 3+ years of experience and 100+ projects for small businesses worldwide. My strength is WordPress done properly — a clear structure, fast loading, and a fix that starts from the cause, explained in plain language, not jargon.</p>
+        <div class="about-tags"><span>WordPress</span><span>Elementor Pro</span><span>Crocoblock (JetEngine, CPT)</span><span>ACF</span><span>Figma / PSD to WordPress</span><span>Theme Customization</span><span>HTML5</span><span>CSS3</span><span>Rank Math / Yoast SEO</span></div>
+        <div class="check">
+          <div>Fast, responsive sites</div>
+          <div>Clean, SEO-ready builds</div>
+          <div>Safe bug diagnosis</div>
+          <div>Clear explanations</div>
+        </div>
+        <p><a class="btn-outline" href="#experience"><span>See My Experience ↓</span></a></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="marquee-band" aria-hidden="true"><div class="marquee-track"><span>WordPress Developer ★</span><span class="out">WooCommerce Expert ★</span><span>Elementor Pro ★</span><span class="out">Crocoblock Expert ★</span><span>ACF Specialist ★</span><span class="out">Speed Optimization ★</span><span>Bug Fixing Expert ★</span><span class="out">SEO Expert ★</span><span>Theme Customization ★</span><span class="out">Figma to WordPress ★</span><span>WordPress Developer ★</span><span class="out">WooCommerce Expert ★</span><span>Elementor Pro ★</span><span class="out">Crocoblock Expert ★</span><span>ACF Specialist ★</span><span class="out">Speed Optimization ★</span><span>Bug Fixing Expert ★</span><span class="out">SEO Expert ★</span><span>Theme Customization ★</span><span class="out">Figma to WordPress ★</span></div></div>
+
+<div class="wrap">
+  <section id="experience">
+    <h2 style="text-align:center" class="reveal">Experience</h2>
+    <p class="reveal" style="text-align:center;color:#bdbdbd;max-width:640px;margin:12px auto 28px;font-size:15px;line-height:1.6">From my first agency role to 75+ live business websites — building, fixing and speeding up WordPress sites that clients can rely on.</p>
+    <div class="timeline">
+      <div class="t-item left reveal"><small>Jun 2025 – Present</small><h3>WordPress Developer — Current Role</h3><p>75+ WordPress websites built with Elementor, Crocoblock and ACF — plus PageSpeed, SEO and bug-fix work for live business sites.</p></div>
+      <div class="t-item right reveal"><small>Jan 2024 – May 2025</small><h3>Web Developer — Startup Tech Innovations Agency</h3><p>30+ projects — Figma / PSD to WordPress builds, site maintenance, migration and hosting support.</p></div>
+      <div class="t-item left reveal"><small>Jul 2023 – Dec 2023</small><h3>Junior Web Developer — Dataflx Agency of BD</h3><p>Theme customization, cross-browser and mobile fixes, and remote support for clients.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="skills-grid">
+      <div class="reveal"><span class="label">Skills</span><h2 style="white-space:nowrap">My Skills</h2><p style="color:#bdbdbd">Tools I work with every day — shown as visual bars, not test scores.</p></div>
+      <div class="reveal">
+        <div class="bar"><div class="skill-head"><img class="skill-logo" src="logo-wordpress.svg" alt="WordPress logo"><span class="tag">Advanced</span></div><div class="skill-name">WordPress</div><div class="track"><div class="fill" data-w="92%"></div></div></div>
+        <div class="bar"><div class="skill-head"><img class="skill-logo" src="logo-elementor.svg" alt="Elementor logo"><span class="tag">Advanced</span></div><div class="skill-name">Elementor Pro</div><div class="track"><div class="fill" data-w="90%"></div></div></div>
+        <div class="bar"><div class="skill-head"><img class="skill-logo" src="logo-woocommerce.svg" alt="WooCommerce logo"><span class="tag">Advanced</span></div><div class="skill-name">WooCommerce</div><div class="track"><div class="fill" data-w="86%"></div></div></div>
+        <div class="bar"><div class="skill-head"><img class="skill-logo" src="logo-seo.svg" alt="SEO and speed icon"><span class="tag">Advanced</span></div><div class="skill-name">SEO / Speed</div><div class="track"><div class="fill" data-w="84%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <span class="label">How I Work</span>
+    <h2>A clear process, no guesswork</h2>
+    <div class="cards4">
+      <div class="card3 reveal"><div class="ic">01</div><h3>Discover</h3><p>Your business, customers and goals first — then the site structure, pages and calls to action that fit them.</p></div>
+      <div class="card3 reveal"><div class="ic">02</div><h3>Design &amp; Build</h3><p>A fast, responsive WordPress site built around your services and calls to action.</p></div>
+      <div class="card3 reveal"><div class="ic">03</div><h3>Fix &amp; Speed</h3><p>Problems are diagnosed first, then fixed safely — never guessed at.</p></div>
+      <div class="card3 reveal"><div class="ic">04</div><h3>Launch &amp; Support</h3><p>Checked, launched, and supported after go-live with maintenance when you need it.</p></div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <span class="label">Portfolio</span>
+    <h2>Selected work</h2>
+    <p style="color:#bdbdbd">Real client work is added only with the client's permission.</p>
+    <div class="port-grid">
+      <div>
+        <div class="tile" style="height:auto"><img class="mock" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/mockups/chatgpt-business.webp" alt="Business website mockup"><h3>Business Website</h3><p>Elementor, responsive, SEO-ready</p></div>
+        <div class="tile v2" style="margin-top:18px;height:auto"><img class="mock" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/mockups/speed.webp" alt="Speed fix mockup"><h3>Speed Fix</h3><p>Diagnosis, caching and image fixes</p></div>
+      </div>
+      <div class="col2">
+        <div class="tile v3" style="height:auto"><img class="mock" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/mockups/chatgpt-shop.webp" alt="WooCommerce shop mockup"><h3>WooCommerce Shop</h3><p>Products, checkout and delivery</p></div>
+        <div class="tile" style="margin-top:18px;height:auto"><img class="mock-logo" src="shakil-logo-claude.svg" alt="Shakil Khan logo mockup"><h3>Logo / Brand</h3><p>Simple brand marks and colour use</p></div>
+      </div>
+      <div>
+        <div class="tile v2" style="height:auto"><img class="mock" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/mockups/chatgpt-booking.webp" alt="Booking website mockup"><h3>Booking Website</h3><p>Services, booking flow and calendar</p></div>
+        <div class="tile v3" style="margin-top:18px;height:auto"><img class="mock" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/mockups/chatgpt-landing.webp" alt="Landing page mockup"><h3>Landing Page</h3><p>One clear offer, one clear action</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Testimonials</span>
+    <h2>What clients say</h2>
+    <div class="testi-sub">What clients say about working with Shakil — honest feedback from business owners who got a fast, clear and reliable WordPress website.</div>
+    <div class="testi-wrap">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-1.webp" alt="Client portrait"><p>Small Business Owner</p><p>Shakil built our business website quickly and explained every step clearly. The site is easy for customers to use and contact us through.</p></div>
+        <div class="testi"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-2.webp" alt="Client portrait"><p>Online Shop Owner</p><p>Our shop, products and checkout were set up properly. Orders are now much easier to manage.</p></div>
+        <div class="testi"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-3.webp" alt="Client portrait"><p>Service Business Owner</p><p>He found the cause of our slow site, fixed it safely, and the site has been stable since.</p></div>
+        <div class="testi"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-4.webp" alt="Client portrait"><p>Restaurant Owner</p><p>Our menu, online ordering and reservations are now on one website. Customers find us easily.</p></div>
+        <div class="testi"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-5.webp" alt="Client portrait"><p>Fitness Coach</p><p>Shakil made a simple booking page for my classes. Clients can see class times and book easily.</p></div>
+        <div class="testi" aria-hidden="true"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-1.webp" alt="Client portrait"><p>Small Business Owner</p><p>Shakil built our business website quickly and explained every step clearly. The site is easy for customers to use and contact us through.</p></div>
+        <div class="testi" aria-hidden="true"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-2.webp" alt="Client portrait"><p>Online Shop Owner</p><p>Our shop, products and checkout were set up properly. Orders are now much easier to manage.</p></div>
+        <div class="testi" aria-hidden="true"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-3.webp" alt="Client portrait"><p>Service Business Owner</p><p>He found the cause of our slow site, fixed it safely, and the site has been stable since.</p></div>
+        <div class="testi" aria-hidden="true"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-4.webp" alt="Client portrait"><p>Restaurant Owner</p><p>Our menu, online ordering and reservations are now on one website. Customers find us easily.</p></div>
+        <div class="testi" aria-hidden="true"><img class="av" src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/avatars/client-5.webp" alt="Client portrait"><p>Fitness Coach</p><p>Shakil made a simple booking page for my classes. Clients can see class times and book easily.</p></div>
+      </div>
+    </div>
+    <div class="controls">
+      <div><button class="sqbtn" onclick="moveTesti(-1)">‹</button> <button class="sqbtn" onclick="moveTesti(1)">›</button></div>
+      <div class="dots" id="testiDots"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <span class="label">Blog</span>
+    <h2>Latest insights</h2>
+    <div class="placeholder">Short, practical posts on WordPress, AI and building a career in websites — written from real client work.</div>
+    <div class="blog-grid">
+      <article class="blog"><a href="blog-wordpress.html"><div class="blog-visual"><img src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/images/blog-wordpress.webp" alt="WordPress website on a laptop"></div></a><div class="blog-body"><h3><a href="blog-wordpress.html">Why WordPress Is Still the Best Choice for Small Business Websites</a></h3><a class="blog-btn" href="blog-wordpress.html"><span>Read More</span></a></div></article>
+      <article class="blog"><a href="blog-ai.html"><div class="blog-visual"><img src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/images/blog-ai.webp" alt="AI and website technology"></div></a><div class="blog-body"><h3><a href="blog-ai.html">AI and Websites: What AI Can Do, and What It Cannot Replace</a></h3><a class="blog-btn" href="blog-ai.html"><span>Read More</span></a></div></article>
+      <article class="blog"><a href="blog-career.html"><div class="blog-visual"><img src="https://raw.githubusercontent.com/webshakilpro/webpro-assets/main/images/blog-career.webp" alt="Developer starting a website career"></div></a><div class="blog-body"><h3><a href="blog-career.html">How to Start a Career in Website Development (Without Wasting Years)</a></h3><a class="blog-btn" href="blog-career.html"><span>Read More</span></a></div></article>
+    </div>
+  </section>
+
+  <section id="contact" style="padding:96px 0 84px">
+    <div class="wrap">
+      <div>
+          <span class="label">Contact</span>
+          <h2 style="margin:0 0 12px">Let's Work Together</h2>
+          <p style="color:#bdbdbd;margin:0;line-height:1.7">Have a WordPress project, a broken site, or a slow site to fix? Reach me here.</p>
+          <div class="contact-cards">
+            <a class="contact-row" href="mailto:devshakilkhanofficial@gmail.com" style="text-decoration:none"><div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg></div><div><small style="color:#00ffc2;letter-spacing:2px">EMAIL</small><br><span style="color:#e5e5e5">devshakilkhanofficial@gmail.com</span></div></a><a class="contact-row" href="https://www.linkedin.com/in/dev-shakil-khan/" style="text-decoration:none"><div class="circ"><svg viewBox="0 0 24 24" fill="#111" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div><div><small style="color:#00ffc2;letter-spacing:2px">LINKEDIN</small><br><span style="color:#e5e5e5">linkedin.com/in/dev-shakil-khan</span></div></a>
+            <a class="contact-row" href="https://github.com/webshakilpro" style="text-decoration:none"><div class="circ"><svg viewBox="0 0 24 24" fill="#111" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div><div><small style="color:#00ffc2;letter-spacing:2px">GITHUB</small><br><span style="color:#e5e5e5">github.com/webshakilpro</span></div></a>
+          </div>
+        </div>
+    </div>
+  </section>
+</div>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-logo" src="/shakil-logo-claude.svg" alt="Shakil khan">
+        <p style="color:#bdbdbd">WordPress Developer. I build fast business websites and fix broken, slow WordPress sites — Elementor, WooCommerce and Crocoblock. First I find the cause, then I fix it.</p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Quick Links</h3>
+        <p style="margin:6px 0"><a href="#home">Home</a></p>
+        <p style="margin:6px 0"><a href="#services">Services</a></p>
+        <p style="margin:6px 0"><a href="#about">About Me</a></p>
+        <p style="margin:6px 0"><a href="#portfolio">Portfolio</a></p>
+        <p style="margin:6px 0"><a href="#contact">Contact</a></p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Services</h3>
+        <p style="margin:6px 0"><a href="#services">Business Websites</a></p>
+        <p style="margin:6px 0"><a href="#services">WooCommerce Shops</a></p>
+        <p style="margin:6px 0"><a href="#services">Bug Fixes &amp; Speed</a></p>
+        <p style="margin:6px 0"><a href="#services">Booking, Migration &amp; Maintenance</a></p>
+      </div>
+      <div class="subscribe-card">
+        <h3 style="margin:0 0 8px">Subscribe</h3>
+        <p style="color:#bdbdbd;margin:0 0 20px;line-height:1.7">Occasional WordPress tips and updates, straight to your inbox.</p>
+        <form class="subscribe-form" id="footSubForm"><input type="email" name="email" required placeholder="Your email address" aria-label="Email address"><input type="hidden" name="botcheck" value=""><button class="btn-red" type="submit" style="justify-content:center;flex-shrink:0;white-space:nowrap;padding-left:16px;padding-right:16px"><span>Subscribe</span></button></form>
+        <p class="sub-note" id="footSubMsg"></p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span>© 2026 Shakil Khan. All rights reserved.</span>
+    <span class="soc"><a href="https://www.linkedin.com/in/dev-shakil-khan/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a><a href="https://github.com/webshakilpro" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a href="https://www.facebook.com/shakilkhan.563589" target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></span>
+  </div>
+</footer>
+<a class="wa-float" href="https://wa.me/8801902369754" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a><button id="topbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="#333" stroke-width="2"/><circle id="topRing" cx="30" cy="30" r="26" fill="none" stroke="#00ffc2" stroke-width="2" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36"/></svg><span class="top-center"><span class="top-arrow">↑</span><span id="topPct" class="top-pct">0%</span></span></button>
+<script>
+// Preloader: logo + progress bar counting to 100%, then fade out
+(function(){var nameFill=document.getElementById('loaderNameFill');var pre=document.getElementById('preloader');if(!nameFill||!pre)return;var n=0;var iv=setInterval(function(){n=Math.min(100,n+Math.floor(Math.random()*12)+6);if(nameFill)nameFill.style.width=n+'%';if(n>=100){clearInterval(iv);setTimeout(function(){pre.classList.add('hide')},250)}},110);setTimeout(function(){clearInterval(iv);pre.classList.add('hide')},3500);})();
+// Typed role
+var roles=['WordPress Developer','WooCommerce Expert','Bug Fix Specialist','Speed Optimizer'];
+var ri=0,ci=0,del=false,el=document.getElementById('typed');
+function type(){var w=roles[ri];if(!del){ci++;el.textContent=w.slice(0,ci);if(ci===w.length){del=true;setTimeout(type,1400);return}}else{ci--;el.textContent=w.slice(0,ci);if(ci===0){del=false;ri=(ri+1)%roles.length}}setTimeout(type,del?45:90)}
+type();
+// Reveal on scroll + skill bars
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.fill').forEach(function(f){f.style.width=f.dataset.w});io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(x){io.observe(x)});
+// Also animate bars when skills section visible (bars are inside reveal)
+document.querySelectorAll('.fill').forEach(function(f){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){f.style.width=f.dataset.w;o.disconnect()}})},{threshold:.3});o.observe(f)});
+// Custom cursor
+var cur=document.getElementById('cursor');
+document.addEventListener('mousemove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,input,textarea').forEach(function(x){x.addEventListener('mouseenter',function(){cur.classList.add('big')});x.addEventListener('mouseleave',function(){cur.classList.remove('big')})});
+// Off-canvas menu: open/close, close on link, close button, or backdrop tap; locks page scroll while open
+(function(){var btn=document.getElementById('menuBtn');var closeBtn=document.getElementById('menuClose');var overlay=document.getElementById('menuOverlay');if(!btn)return;function setOpen(open){document.body.classList.toggle('menu-open',open);btn.setAttribute('aria-expanded',open?'true':'false');document.body.style.overflow=open?'hidden':''}btn.addEventListener('click',function(){setOpen(!document.body.classList.contains('menu-open'))});if(closeBtn)closeBtn.addEventListener('click',function(){setOpen(false)});if(overlay)overlay.addEventListener('click',function(){setOpen(false)});document.querySelectorAll('#mainNav a').forEach(function(a){a.addEventListener('click',function(){setOpen(false)})})})();
+// Testimonial slider: infinite loop. The 3 cards are duplicated in HTML, so the track
+// never runs out of cards; when the clone set is reached it jumps back to the real set
+// instantly (no transition), so it looks like the next card keeps coming from the right.
+var ti=0;
+function applyTesti(){var tr=document.getElementById('testiTrack');var first=document.querySelector('.testi');var dots=document.querySelectorAll('#testiDots span');if(!tr||!first)return;tr.style.transform='translateX(-'+(ti*(first.offsetWidth+18))+'px)';dots.forEach(function(s,i){s.classList.toggle('on',i===(ti%5))})}
+function resetTesti(to){var tr=document.getElementById('testiTrack');if(!tr)return;tr.style.transition='none';ti=to;applyTesti();void tr.offsetWidth;tr.style.transition=''}
+function moveTesti(d){var tr=document.getElementById('testiTrack');if(!tr)return;if(d>0){ti++;applyTesti();if(ti===5){setTimeout(function(){resetTesti(0)},520)}}else{if(ti===0){resetTesti(5);setTimeout(function(){ti=4;applyTesti()},20)}else{ti--;applyTesti()}}}
+function goTesti(i){ti=i;applyTesti()}
+window.addEventListener('resize',applyTesti);
+// Pagination dots are tappable, and phone swipe works on the slider
+(function(){var dots=document.querySelectorAll('#testiDots span');dots.forEach(function(s,i){s.style.cursor='pointer';s.addEventListener('click',function(){goTesti(i)})});var wrap=document.querySelector('.testi-wrap');if(!wrap)return;var sx=0;wrap.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)moveTesti(dx<0?1:-1)},{passive:true})})();
+// Back to top
+window.addEventListener('scroll',function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;var pct=max>0?Math.round(h.scrollTop/max*100):0;document.getElementById('topPct').textContent=pct+'%';var ring=document.getElementById('topRing');var C=163.36;ring.style.strokeDashoffset=C-(C*pct/100);document.getElementById('topbtn').classList.toggle('show',window.scrollY>100);var wa=document.querySelector('.wa-float');if(wa)wa.classList.toggle('lifted',window.scrollY>100)});
+
+// Split hero name into letters, staggered blur-in (Split / Blur Text style)
+(function(){var h1=document.querySelector('.hero h1');if(!h1)return;var txt=h1.textContent;h1.innerHTML='';Array.from(txt).forEach(function(ch,i){var s=document.createElement('span');s.className='split-char';s.style.animationDelay=(0.9+i*0.06)+'s';s.innerHTML=(ch===' '?'&nbsp;':ch);h1.appendChild(s)})})();
+// Magnetic buttons: ease toward cursor, spring back (Magnet style)
+
+// Click sparks on main buttons (Click Spark style)
+document.addEventListener('click',function(e){if(!e.target.closest('.btn-red,.btn-outline,.sqbtn,#topbtn'))return;for(var i=0;i<7;i++){var s=document.createElement('span');s.className='spark';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';var a=(Math.PI*2*i/7);s.style.setProperty('--dx',Math.cos(a)*34+'px');s.style.setProperty('--dy',Math.sin(a)*34+'px');document.body.appendChild(s);setTimeout((function(el){return function(){el.remove()}})(s),650)}});
+// Gentle scroll parallax on hero photo (Scroll Float style)
+var heroImg=document.querySelector('.hero .blob');var ticking=false;
+window.addEventListener('scroll',function(){if(ticking)return;ticking=true;requestAnimationFrame(function(){if(heroImg)heroImg.style.transform='translateY('+Math.min(window.scrollY*0.05,50)+'px)';ticking=false})},{passive:true});
+</script>
+<script>(function(){var tl=document.querySelector(".timeline");if(!tl)return;var prog=document.createElement("div");prog.className="timeline-progress";tl.prepend(prog);var items=tl.querySelectorAll(".t-item");function update(){var r=tl.getBoundingClientRect();var p=(window.innerHeight*0.75-r.top)/r.height;p=Math.max(0,Math.min(1,p));prog.style.height=(p*100)+"%";var lineY=window.innerHeight*0.75;items.forEach(function(it){var ir=it.getBoundingClientRect();if(ir.top+12<lineY){it.classList.add("active")}else{it.classList.remove("active")}})}window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update);update();})();</script><script>document.getElementById("footSubForm").addEventListener("submit",async function(e){e.preventDefault();var m=document.getElementById("footSubMsg");var em=this.email.value.trim();m.textContent="Subscribing...";try{var r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({access_key:"a10bf36d-2699-4f5f-8641-9733dabefc95",email:em,subject:"New subscriber - Shakil portfolio",from_name:"Shakil portfolio subscribe",botcheck:""})});var d=await r.json();if(r.ok&&d.success){m.textContent="Thank you for subscribing!";this.reset()}else{m.textContent="Something went wrong - please try again."}}catch(err){m.textContent="Something went wrong - please try again."}})</script></body>
+</html>

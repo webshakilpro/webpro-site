@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://webpro-blue.vercel.app/sitemap.xml
