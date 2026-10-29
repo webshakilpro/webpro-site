@@ -89,7 +89,7 @@ td{padding:12px 8px;border-bottom:1px solid #f1f5f9}
 <nav class="menu">
 <a href="#top" class="active">▦ <span>Dashboard</span></a>
 <a href="#control" id="navControl">🎛 <span>Website Control</span></a>
-<a href="#blogpost" id="navBlog" style="display:none">✎ <span>Blog Post</span></a>
+<a href="#blogpost" id="navBlog" style="display:none">✎ <span>Blog Posts</span></a>
 <a href="#projects">▣ <span>Projects</span></a>
 <a href="#services">◈ <span>Services</span></a>
 <a href="#statistics">◉ <span>Statistics</span></a>
@@ -204,14 +204,19 @@ Clear explanations</textarea>
 </section>
 
 <section class="panel ctl" id="blogpost" style="margin-top:18px;display:none">
-<h2>Blog Post</h2>
-<p class="note">Ekhan theke notun blog post likhle seta sorasori live blog page e (blog.html) ar home page er blog section e show korbe. Sudhu Administrator post korte parbe.</p>
+<h2>Blog Posts</h2>
+<p class="note">Ekhane tomar sob blog post er list ache — Edit kore bodlate parba, ar nicher form theke notun post jog korte parba (WordPress er Posts page er moto). Sudhu Administrator post edit/add korte parbe.</p>
+<div style="margin:16px 0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 style="margin:0;font-size:15px">Sob post (<span id="bpCount">0</span> ta)</h3><button class="btn2" onclick="loadBlogList()">List refresh koro</button></div>
+<div id="bpList" style="margin-top:10px"></div>
+</div></p>
+<h3 id="bpFormTitle" style="font-size:15px">Notun post</h3>
 <label>Title *</label><input type="text" id="bpTitle" placeholder="Post er title">
 <label>Category *</label><input type="text" id="bpCat" placeholder="jemon: WordPress">
 <label>Chobir link (na thakle khali rakho)</label><input type="url" id="bpImg" placeholder="https://... (webpro-assets er image link)">
 <label>Choto excerpt (khali rakhle lekhar prothom ongsho theke neoa hobe)</label><textarea id="bpExcerpt"></textarea>
 <label>Lekha * (paragraph er majhe khali line dao; ## diye suru korle heading hobe)</label><textarea id="bpContent" rows="10"></textarea>
-<div style="margin-top:14px"><button class="btn2" onclick="publishBlog()">Blog post live koro</button></div>
+<div style="margin-top:14px"><button class="btn2" id="bpSubmit" onclick="publishBlog()">Blog post live koro</button><button class="btn2" id="bpCancel" style="display:none;margin-left:8px" onclick="bpCancelEdit()">Cancel</button></div>
 <p id="blogStatus"></p>
 </section>
 
@@ -443,6 +448,7 @@ function showView(id){
   var link=document.querySelector('.menu a[href="#'+id+'"]');
   if(link)link.classList.add('active');
   window.scrollTo(0,0);
+  if(id==='blogpost')loadBlogList();
 }
 document.querySelectorAll('.menu a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
@@ -631,6 +637,7 @@ async function publishBlog(){
   var st=document.getElementById('blogStatus');
   if(sbRole!=='admin'){st.textContent='Blog post sudhu Administrator korte parbe.';return}
   if(!ghToken()){st.textContent='Age Settings e GitHub token save koro, tarpor post koro.';return}
+  if(bpEditing)return publishBlogEdit();
   var title=document.getElementById('bpTitle').value.trim();
   var cat=document.getElementById('bpCat').value.trim();
   var img=document.getElementById('bpImg').value.trim().replace(/"/g,'');
@@ -720,7 +727,186 @@ async function publishBlog(){
     document.getElementById('bpTitle').value='';
     document.getElementById('bpExcerpt').value='';
     document.getElementById('bpContent').value='';
+    loadBlogList();
   }catch(e){st.textContent='Post hoy nai: '+e.message}
+}
+
+var bpEditing=null;
+function bpSetMode(){
+  var editing=!!bpEditing;
+  document.getElementById('bpFormTitle').textContent=editing?('Post edit koro: '+bpEditing.file):'Notun post';
+  document.getElementById('bpSubmit').textContent=editing?'Post update koro':'Blog post live koro';
+  document.getElementById('bpCancel').style.display=editing?'inline-block':'none';
+}
+function bpCancelEdit(){
+  bpEditing=null;
+  document.getElementById('bpTitle').value='';
+  document.getElementById('bpCat').value='';
+  document.getElementById('bpImg').value='';
+  document.getElementById('bpExcerpt').value='';
+  document.getElementById('bpContent').value='';
+  document.getElementById('blogStatus').textContent='';
+  bpSetMode();
+}
+function bpUnescape(s){return s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'")}
+function blogBodyToText(body){
+  var parts=[];
+  var re=/(?:<h2>([\s\S]*?)<\/h2>)|(?:<p>([\s\S]*?)<\/p>)/g;
+  var m;
+  while((m=re.exec(body))!==null){
+    if(m[1]!==undefined)parts.push('## '+bpUnescape(m[1].replace(/<[^>]+>/g,'')));
+    else parts.push(bpUnescape(m[2].replace(/<[^>]+>/g,'')));
+  }
+  return parts.join('\n\n');
+}
+function blogListCards(listing){
+  var reCard=/<article class="post-card"><a href="([^"]+)">(?:<img src="([^"]+)" alt="([^"]*)">)?<\/a><div class="post-body"><p class="post-meta">([^<]+)<\/p><h2><a href="[^"]+">([^<]+)<\/a><\/h2><p>([^<]*)<\/p>/g;
+  var m,cards=[];
+  while((m=reCard.exec(listing))!==null){cards.push({href:m[1],img:m[2]||'',alt:m[3]||'',meta:m[4],title:m[5],ex:m[6]})}
+  return cards;
+}
+async function loadBlogList(){
+  var box=document.getElementById('bpList');
+  var cnt=document.getElementById('bpCount');
+  if(!ghToken()){box.innerHTML='<p class="note">List dekhte age Settings e GitHub token save koro.</p>';return}
+  box.innerHTML='<p class="note">List ana hochche...</p>';
+  try{
+    var bl=await ghGetFile('blog.html');
+    if(bl.error)throw new Error(bl.error);
+    if(bl.missing)throw new Error('blog.html pawa jay nai.');
+    var rows=blogListCards(bl.text);
+    cnt.textContent=rows.length;
+    if(!rows.length){box.innerHTML='<p class="note">Ekhono kono post nai.</p>';return}
+    var h='<table><thead><tr><th>Title</th><th>Category / Date</th><th></th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      h+='<tr><td><a href="https://webpro-blue.vercel.app/'+r.href+'" target="_blank" rel="noopener">'+r.title+'</a></td><td>'+r.meta+'</td><td><button class="btn2" onclick="bpEditPost(\''+r.href+'\')">Edit</button></td></tr>';
+    });
+    h+='</tbody></table>';
+    box.innerHTML=h;
+  }catch(e){box.innerHTML='<p class="note">List ana jay nai: '+e.message+'</p>'}
+}
+async function bpEditPost(file){
+  var st=document.getElementById('blogStatus');
+  if(!ghToken()){st.textContent='Age Settings e GitHub token save koro.';return}
+  st.textContent='Post ana hochche...';
+  try{
+    var f=await ghGetFile(file);
+    if(f.error)throw new Error(f.error);
+    if(f.missing)throw new Error('Post file pawa jay nai.');
+    var bl=await ghGetFile('blog.html');
+    var t=f.text;
+    var tm=t.match(/<h1>([^<]+)<\/h1>/);
+    var cm=t.match(/<span class="cat">Category: ([^<]+)<\/span>/);
+    var im=t.match(/<img class="post-hero" src="([^"]+)"/);
+    var mm=t.match(/<p class="meta">Shakil Khan • ([^•]+) •/);
+    var bm=t.match(/<div class="post-body">([\s\S]*?)<\/div><div class="rel">/);
+    var ex='';
+    if(!bl.error&&!bl.missing){
+      var rows=blogListCards(bl.text);
+      var row=rows.filter(function(r){return r.href===file})[0];
+      if(row)ex=row.ex;
+    }
+    document.getElementById('bpTitle').value=tm?bpUnescape(tm[1]):'';
+    document.getElementById('bpCat').value=cm?bpUnescape(cm[1]):'';
+    document.getElementById('bpImg').value=im?im[1]:'';
+    document.getElementById('bpExcerpt').value=ex;
+    document.getElementById('bpContent').value=bm?blogBodyToText(bm[1]):'';
+    bpEditing={file:file,monthYear:mm?mm[1].trim():'',oldCat:cm?bpUnescape(cm[1]):''};
+    bpSetMode();
+    st.textContent='Edit mode: '+file+' — bodle "Post update koro" chapo.';
+    document.getElementById('blogpost').scrollIntoView();
+  }catch(e){st.textContent='Post ana jay nai: '+e.message}
+}
+function blogCatRe(catStr){
+  return catStr.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+}
+async function publishBlogEdit(){
+  var st=document.getElementById('blogStatus');
+  var file=bpEditing.file;
+  var oldCat=bpEditing.oldCat;
+  var title=document.getElementById('bpTitle').value.trim();
+  var cat=document.getElementById('bpCat').value.trim();
+  var img=document.getElementById('bpImg').value.trim().replace(/"/g,'');
+  var excerpt=document.getElementById('bpExcerpt').value.trim();
+  var content=document.getElementById('bpContent').value.trim();
+  if(!title||!cat||!content){st.textContent='Title, Category ar lekha — ei 3 ta lagbei.';return}
+  var monthYear=bpEditing.monthYear||blogMonthYear();
+  var bodyHtml=blogBodyHtml(content);
+  if(!excerpt){var first=content.split(/\n\s*\n/)[0].replace(/\n/g,' ');excerpt=first.length>160?first.slice(0,157)+'...':first}
+  st.textContent='Post update hochche...';
+  try{
+    var pf=await ghGetFile(file);
+    if(pf.error)throw new Error(pf.error);
+    if(pf.missing)throw new Error('Post file pawa jay nai.');
+    var bl=await ghGetFile('blog.html');
+    if(bl.error)throw new Error(bl.error);
+    if(bl.missing)throw new Error('blog.html pawa jay nai.');
+    var cards=blogListCards(bl.text);
+    var relGrid=cards.filter(function(c){return c.href!==file}).slice(0,3).map(function(c){return '<a href="'+c.href+'">'+(c.img?('<img src="'+c.img+'" alt="">'):'')+'<span>'+c.title+'</span></a>'}).join('');
+    var postHtml=blogPostPage(title,cat,img,bodyHtml,relGrid,monthYear);
+    var p1=await ghPutFile(file,postHtml,pf.sha,'Dashboard theke blog post update: '+title);
+    if(p1.error)throw new Error('Post page save hoy nai: '+p1.error);
+    var escFile=file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    var cardImg=img?('<img src="'+img+'" alt="'+cesc(title)+'">'):'';
+    var newCard='<article class="post-card"><a href="'+file+'">'+cardImg+'</a><div class="post-body"><p class="post-meta">'+cesc(cat)+' • '+monthYear+'</p><h2><a href="'+file+'">'+cesc(title)+'</a></h2><p>'+cesc(excerpt)+'</p><a class="pill" href="'+file+'"><span>Read More →</span></a></div></article>';
+    var listing=bl.text;
+    var cardRe=new RegExp('<article class="post-card"><a href="'+escFile+'">[\\s\\S]*?<\/article>');
+    if(!cardRe.test(listing))throw new Error('blog.html e post card pawa jay nai (post page update hoyeche).');
+    listing=listing.replace(cardRe,newCard);
+    var recRe=new RegExp('<a href="'+escFile+'">(?:<img[^>]*>)?<div><small>[^<]*<\/small><b>[^<]*<\/b><\/div><\/a>');
+    if(recRe.test(listing)){
+      var recImg=img?('<img src="'+img+'" alt="">'):'';
+      listing=listing.replace(recRe,'<a href="'+file+'">'+recImg+'<div><small>'+cesc(cat)+'</small><b>'+cesc(title)+'</b></div></a>');
+    }
+    var mCats=listing.match(/<ul class="cats">[\s\S]*?<\/ul>/);
+    if(mCats&&oldCat){
+      var catsBlock=mCats[0];
+      if(oldCat!==cat){
+        var oldRe=new RegExp('<li><a href="([^"]+)">'+blogCatRe(oldCat)+' <span>(\\d+)<\/span><\/a><\/li>');
+        var om=catsBlock.match(oldRe);
+        if(om){
+          var n=parseInt(om[2],10)-1;
+          if(n<=0){catsBlock=catsBlock.replace(oldRe,'')}
+          else{
+            var href=om[1];
+            if(href===file){
+              var rm=listing.match(new RegExp('<article class="post-card"><a href="([^"]+)">[\\s\\S]*?<p class="post-meta">'+blogCatRe(oldCat)+' •'));
+              if(rm)href=rm[1];
+            }
+            catsBlock=catsBlock.replace(oldRe,'<li><a href="'+href+'">'+cesc(oldCat)+' <span>'+n+'</span></a></li>');
+          }
+        }
+        var newRe=new RegExp('<li><a href="([^"]+)">'+blogCatRe(cat)+' <span>(\\d+)<\/span><\/a><\/li>');
+        var nm=catsBlock.match(newRe);
+        if(nm){catsBlock=catsBlock.replace(newRe,'<li><a href="'+nm[1]+'">'+cesc(cat)+' <span>'+(parseInt(nm[2],10)+1)+'</span></a></li>')}
+        else{catsBlock=catsBlock.replace('</ul>','<li><a href="'+file+'">'+cesc(cat)+' <span>1</span></a></li></ul>')}
+      }
+      listing=listing.replace(mCats[0],catsBlock);
+    }
+    var tagsMatch=listing.match(/<p class="tags">([\s\S]*?)<\/p>/);
+    if(tagsMatch&&tagsMatch[0].indexOf('>'+cesc(cat)+'<')<0){listing=listing.replace(tagsMatch[0],'<p class="tags">'+tagsMatch[1]+'<span>'+cesc(cat)+'</span></p>')}
+    var p2=await ghPutFile('blog.html',listing,bl.sha,'Dashboard theke blog list update (edit): '+title);
+    if(p2.error)throw new Error('blog.html update hoy nai (post page update hoyeche): '+p2.error);
+    var ix=await ghGetFile('index.html');
+    if(!ix.error&&!ix.missing){
+      var homeRe=new RegExp('<article class="blog"><a href="'+escFile+'">[\\s\\S]*?<\/article>');
+      if(homeRe.test(ix.text)){
+        var newHome='<article class="blog"><a href="'+file+'"><div class="blog-visual">'+(img?('<img src="'+img+'" alt="'+cesc(title)+'">'):'')+'</div></a><div class="blog-body"><h3><a href="'+file+'">'+cesc(title)+'</a></h3><a class="blog-btn" href="'+file+'"><span>Read More</span></a></div></article>';
+        ix.text=ix.text.replace(homeRe,newHome);
+        var p3=await ghPutFile('index.html',ix.text,ix.sha,'Dashboard theke home blog update (edit): '+title);
+        if(p3.error){st.textContent='Post update hoyeche (post page + blog list), kintu home update hoy nai: '+p3.error;bpEditing=null;bpSetMode();loadBlogList();return}
+      }
+    }
+    bpEditing=null;
+    document.getElementById('bpTitle').value='';
+    document.getElementById('bpCat').value='';
+    document.getElementById('bpImg').value='';
+    document.getElementById('bpExcerpt').value='';
+    document.getElementById('bpContent').value='';
+    bpSetMode();
+    st.textContent='Post update hoyeche! 1-2 min er moddhe live dekhte parba.';
+    loadBlogList();
+  }catch(e){st.textContent='Post update hoy nai: '+e.message}
 }
 </script>
 </body>
