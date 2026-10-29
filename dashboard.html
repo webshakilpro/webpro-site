@@ -335,7 +335,7 @@ async function sbEnter(){
     var pr=await fetch(SB_URL+'/rest/v1/profiles?select=role,email&id=eq.'+u.id,{headers:sbHeaders(s.access_token)});
     var pj=await pr.json();
     var role=(pj[0]&&pj[0].role)||'viewer';
-    sbRole=role;sbApplyRole(role);
+    sbRole=role;sbApplyRole(role);var hh=(location.hash||'').slice(1);if(DASH_VIEWS.indexOf(hh)>=0)showView(hh);
     sbShowApp(true);
   }catch(e){sbClearSession();sbShowApp(false)}
 }
@@ -426,12 +426,36 @@ document.getElementById('searchBox').addEventListener('input',function(){
 document.querySelectorAll('.todo input').forEach(function(cb){
   cb.addEventListener('change',function(){this.parentNode.classList.toggle('off',this.checked)});
 });
+var DASH_VIEWS=['top','control','projects','services','statistics','todo','users','settings','blogpost'];
+function showView(id){
+  if((id==='users'||id==='blogpost')&&sbRole!=='admin')id='top';
+  if(id==='control'&&sbRole==='viewer')id='top';
+  var cards=document.querySelector('section.cards');
+  var bottom=document.querySelector('.bottom');
+  var blocks={top:[cards,document.getElementById('statistics')],control:[document.getElementById('control')],projects:[document.getElementById('projects')],services:[document.getElementById('services')],statistics:[document.getElementById('statistics')],todo:[document.getElementById('todo')],users:[document.getElementById('users')],settings:[document.getElementById('settings')],blogpost:[document.getElementById('blogpost')]};
+  var all=[cards,document.getElementById('statistics'),document.getElementById('control'),document.getElementById('projects'),document.getElementById('todo'),document.getElementById('services'),document.getElementById('users'),document.getElementById('settings'),document.getElementById('blogpost')];
+  all.forEach(function(el){if(el)el.style.display='none'});
+  if(bottom)bottom.style.display='none';
+  var show=blocks[id]||blocks.top;
+  show.forEach(function(el){if(el)el.style.display=''});
+  if((id==='todo'||id==='services')&&bottom)bottom.style.display='';
+  document.querySelectorAll('.menu a').forEach(function(x){x.classList.remove('active')});
+  var link=document.querySelector('.menu a[href="#'+id+'"]');
+  if(link)link.classList.add('active');
+  window.scrollTo(0,0);
+}
 document.querySelectorAll('.menu a[href^="#"]').forEach(function(a){
-  a.addEventListener('click',function(){
-    document.querySelectorAll('.menu a').forEach(function(x){x.classList.remove('active')});
-    a.classList.add('active');
+  a.addEventListener('click',function(e){
+    var id=a.getAttribute('href').slice(1);
+    if(DASH_VIEWS.indexOf(id)<0)return;
+    e.preventDefault();
+    showView(id);
   });
 });
+(function(){
+  var h=(location.hash||'').slice(1);
+  showView(DASH_VIEWS.indexOf(h)>=0?h:'top');
+})();
 var CSVC=[
 ["Business Websites","A responsive, SEO-ready website built around your services and customers — clear pages and clear calls to action, so visitors can contact or buy without confusion."],
 ["WooCommerce Shops","Products, shop pages, checkout and delivery set up properly — so customers can order smoothly and you can manage orders easily."],
