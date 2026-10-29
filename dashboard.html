@@ -89,6 +89,7 @@ td{padding:12px 8px;border-bottom:1px solid #f1f5f9}
 <nav class="menu">
 <a href="#top" class="active">▦ <span>Dashboard</span></a>
 <a href="#control" id="navControl">🎛 <span>Website Control</span></a>
+<a href="#blogpost" id="navBlog" style="display:none">✎ <span>Blog Post</span></a>
 <a href="#projects">▣ <span>Projects</span></a>
 <a href="#services">◈ <span>Services</span></a>
 <a href="#statistics">◉ <span>Statistics</span></a>
@@ -147,7 +148,7 @@ td{padding:12px 8px;border-bottom:1px solid #f1f5f9}
 
 <section class="panel ctl" id="control" style="margin-top:18px">
 <h2>Website Control</h2>
-<p class="note">Ekhan theke tomar website er lekha, link ar section bodlate parba. Bodlano sesh hole <b>Export</b> chaple notun index.html download hobe — sei file ta amake pathale ami check kore live kore dibo. (Site ta static, tai dashboard theke sorasori live bodlano jay na — direct save er jonno backend lagbe, chaile pore seta setup kora jabe.)</p>
+<p class="note">Ekhan theke tomar website er lekha, link ar section bodlate parba. Bodlano sesh hole <b>Live Publish</b> chaple seta sorasori live site e update hobe (GitHub repo hoye Vercel auto-deploy korbe, 1-2 min lagbe). <b>Export</b> chaple sudhu file download hobe — backup hisebe.</p>
 <h2 style="font-size:16px;margin-top:20px">Hero</h2>
 <label>Choto label</label><input type="text" id="c-heroLabel" value="Hello, I'm">
 <label>Boro nam</label><input type="text" id="c-heroName" value="Shakil Khan">
@@ -198,8 +199,20 @@ Clear explanations</textarea>
 <label><input type="checkbox" class="ctlSec" data-sec="blog" checked> Blog</label>
 <label><input type="checkbox" class="ctlSec" data-sec="contact" checked> Contact</label>
 </div>
-<div style="margin-top:18px"><button class="btn2" onclick="exportSite()">Export updated index.html ↓</button></div>
+<div style="margin-top:18px"><button class="btn2" onclick="exportSite()">Export updated index.html ↓</button><span id="ctlPublishWrap" style="display:none;margin-left:8px"><button class="btn2" onclick="publishSite()">Live Publish koro 🚀</button></span></div>
 <p id="ctlStatus"></p>
+</section>
+
+<section class="panel ctl" id="blogpost" style="margin-top:18px;display:none">
+<h2>Blog Post</h2>
+<p class="note">Ekhan theke notun blog post likhle seta sorasori live blog page e (blog.html) ar home page er blog section e show korbe. Sudhu Administrator post korte parbe.</p>
+<label>Title *</label><input type="text" id="bpTitle" placeholder="Post er title">
+<label>Category *</label><input type="text" id="bpCat" placeholder="jemon: WordPress">
+<label>Chobir link (na thakle khali rakho)</label><input type="url" id="bpImg" placeholder="https://... (webpro-assets er image link)">
+<label>Choto excerpt (khali rakhle lekhar prothom ongsho theke neoa hobe)</label><textarea id="bpExcerpt"></textarea>
+<label>Lekha * (paragraph er majhe khali line dao; ## diye suru korle heading hobe)</label><textarea id="bpContent" rows="10"></textarea>
+<div style="margin-top:14px"><button class="btn2" onclick="publishBlog()">Blog post live koro</button></div>
+<p id="blogStatus"></p>
 </section>
 
 <section class="panel" id="projects" style="margin-top:18px">
@@ -256,13 +269,22 @@ Clear explanations</textarea>
 
 <section class="panel" id="settings" style="margin-top:18px">
 <h2>Settings</h2>
-<p class="note">Ei dashboard ekhon personal/demo view. Client, invoice ba message er real data ekhono connect kora hoy nai — tai fake client, dam ba tarikh dei nai. Tomar asol data dile pore oi section gulo jog kora jabe. Dashboard ta site er menu te link kora nai, ar kono password lock nai.</p>
+<p class="note">Dashboard e asol login ache (Supabase) — tumi Administrator. Client, invoice ba message er real data ekhono connect kora hoy nai — tai fake client, dam ba tarikh dei nai. Live Publish er jonno nicher GitHub Publish block e token save koro (sudhu Administrator dekhte parbe).</p>
+<div id="ghBlock" style="display:none;margin-top:20px">
+<h2 style="font-size:16px">GitHub Publish</h2>
+<p class="note">Live Publish ar Blog Post er jonno GitHub token lage. Token ta GitHub theke banate hoy (fine-grained token, sudhu webpro-site repo, Contents: Read and write). Token ta sudhu ei browser e save thakbe — amake ba chat e kokhono pathabe na.</p>
+<label style="display:block;font-size:12px;color:#6366f1;font-weight:700;margin:10px 0 4px">GitHub token</label><input type="password" id="ghTokenInput" placeholder="github_pat_..." style="width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:11px 13px">
+<div style="margin-top:14px"><button class="btn2" onclick="ghSaveToken()">Token save koro</button> <button class="btn2" onclick="ghTest()">Connection test koro</button> <button class="btn2" onclick="ghClearToken()">Token muchhe felo</button></div>
+<p id="ghMsg" style="font-size:14px;color:#0f766e"></p>
+</div>
+
 </section>
 </main>
 </div>
 <script>
 var SB_URL='https://kbdyzupzgekbuooyidof.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtiZHl6dXB6Z2VrYnVvb3lpZG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNjU3ODYsImV4cCI6MjEwODg0MTc4Nn0.OOVyjcKAUaSseEZP-8HVJc0cYy1XmJMhh1g-SFv2l-0';
+var sbRole='viewer';
 function sbReady(){return SB_URL.indexOf('YOUR_')!==0}
 function sbHeaders(token){var h={'apikey':SB_KEY,'Content-Type':'application/json'};if(token)h['Authorization']='Bearer '+token;return h}
 function sbGetSession(){try{return JSON.parse(localStorage.getItem('sbSession')||'null')}catch(e){return null}}
@@ -287,6 +309,10 @@ function sbApplyRole(role){
   var showCtl=role!=='viewer';
   document.getElementById('navControl').style.display=showCtl?'flex':'none';
   document.getElementById('control').style.display=showCtl?'block':'none';
+  document.getElementById('navBlog').style.display=isAdmin?'flex':'none';
+  document.getElementById('blogpost').style.display=isAdmin?'block':'none';
+  document.getElementById('ghBlock').style.display=isAdmin?'block':'none';
+  document.getElementById('ctlPublishWrap').style.display=isAdmin?'inline-block':'none';
   if(isAdmin){sbLoadUsers()}
 }
 async function sbFetchUser(token){
@@ -309,7 +335,7 @@ async function sbEnter(){
     var pr=await fetch(SB_URL+'/rest/v1/profiles?select=role,email&id=eq.'+u.id,{headers:sbHeaders(s.access_token)});
     var pj=await pr.json();
     var role=(pj[0]&&pj[0].role)||'viewer';
-    sbApplyRole(role);
+    sbRole=role;sbApplyRole(role);
     sbShowApp(true);
   }catch(e){sbClearSession();sbShowApp(false)}
 }
@@ -432,54 +458,245 @@ function ctlHideSection(html,sec){
   else{tag=tag.slice(0,-1)+' style="display:none">'}
   return html.slice(0,tagIdx)+tag+html.slice(end+1);
 }
+function applyControlEdits(html){
+  var skipped=[];
+  function rep(orig,neu,label){
+    if(orig===neu)return;
+    if(html.indexOf(orig)<0){skipped.push(label);return}
+    html=html.split(orig).join(neu);
+  }
+  function repE(orig,neu,label){rep(cesc(orig),cesc(neu),label)}
+  repE("Hello, I'm",cval('c-heroLabel'),'Hero label');
+  repE('Shakil Khan',cval('c-heroName'),'Hero nam');
+  rep("I build fast, professional WordPress websites for small businesses — and fix slow, broken sites properly.<br>First I find the cause, then I fix it. No jargon, no guesswork.",cesc(cval('c-heroSub')).replace(/\n/g,'<br>'),'Hero subtitle');
+  var cstats=[['3+','Years Experience','c-stat1n','c-stat1l'],['100+','Projects Completed','c-stat2n','c-stat2l'],['75+','Websites Built','c-stat3n','c-stat3l']];
+  cstats.forEach(function(s,i){
+    rep('<b>'+s[0]+'</b><span>'+s[1]+'</span>','<b>'+cesc(cval(s[2]))+'</b><span>'+cesc(cval(s[3]))+'</span>','Stat '+(i+1));
+  });
+  repE('A developer who ',cval('c-aboutH1'),'About heading (age)');
+  repE('explains',cval('c-aboutH2'),'About heading (mint)');
+  repE(' the work',cval('c-aboutH3'),'About heading (pore)');
+  repE('I am a WordPress developer with 3+ years of experience and 100+ projects for small businesses worldwide. My strength is WordPress done properly — a clear structure, fast loading, and a fix that starts from the cause, explained in plain language, not jargon.',cval('c-aboutIntro'),'About intro');
+  var tags=cval('c-aboutTags').split(',').map(function(t){return t.trim()}).filter(Boolean);
+  var newTags='<div class="about-tags">'+tags.map(function(t){return '<span>'+cesc(t)+'</span>'}).join('')+'</div>';
+  var mTags=html.match(/<div class="about-tags">[\s\S]*?<\/div>/);
+  if(mTags){html=html.replace(mTags[0],newTags)}else{skipped.push('About tags')}
+  var checks=cval('c-aboutCheck').split('\n').map(function(t){return t.trim()}).filter(Boolean);
+  var newCheck='<div class="check">'+checks.map(function(t){return '<div>'+cesc(t)+'</div>'}).join('')+'</div>';
+  var mCheck=html.match(/<div class="check">\s*(?:<div>[^<]*<\/div>\s*)+<\/div>/);
+  if(mCheck){html=html.replace(mCheck[0],newCheck)}else{skipped.push('About checklist')}
+  CSVC.forEach(function(s,i){
+    repE(s[0],cval('c-svcT'+i),'Service '+(i+1)+' title');
+    repE(s[1],cval('c-svcD'+i),'Service '+(i+1)+' description');
+  });
+  repE('Also: Migration and maintenance.',cval('c-svcNote'),'Services note');
+  rep('devshakilkhanofficial@gmail.com',cval('c-email'),'Contact email');
+  rep('https://www.linkedin.com/in/dev-shakil-khan/',cval('c-linkedin'),'LinkedIn');
+  rep('https://github.com/webshakilpro',cval('c-github'),'GitHub');
+  rep('https://www.facebook.com/shakilkhan.563589',cval('c-facebook'),'Facebook');
+  rep('https://wa.me/8801902369754',cval('c-whatsapp'),'WhatsApp');
+  repE('WordPress Developer. I build fast business websites and fix broken, slow WordPress sites — Elementor, WooCommerce and Crocoblock. First I find the cause, then I fix it.',cval('c-footDesc'),'Footer description');
+  repE('© 2026 Shakil Khan. All rights reserved.',cval('c-copyright'),'Copyright');
+  document.querySelectorAll('.ctlSec').forEach(function(c){if(!c.checked){html=ctlHideSection(html,c.getAttribute('data-sec'))}});
+  return {html:html,skipped:skipped};
+}
 async function exportSite(){
   var st=document.getElementById('ctlStatus');st.textContent='Tayar hochche...';
   try{
     var res=await fetch('index.html');if(!res.ok)throw new Error('index.html pawa jay nai');
     var html=await res.text();
-    var skipped=[];
-    function rep(orig,neu,label){
-      if(orig===neu)return;
-      if(html.indexOf(orig)<0){skipped.push(label);return}
-      html=html.split(orig).join(neu);
-    }
-    function repE(orig,neu,label){rep(cesc(orig),cesc(neu),label)}
-    repE("Hello, I'm",cval('c-heroLabel'),'Hero label');
-    repE('Shakil Khan',cval('c-heroName'),'Hero nam');
-    rep("I build fast, professional WordPress websites for small businesses — and fix slow, broken sites properly.<br>First I find the cause, then I fix it. No jargon, no guesswork.",cesc(cval('c-heroSub')).replace(/\n/g,'<br>'),'Hero subtitle');
-    var cstats=[['3+','Years Experience','c-stat1n','c-stat1l'],['100+','Projects Completed','c-stat2n','c-stat2l'],['75+','Websites Built','c-stat3n','c-stat3l']];
-    cstats.forEach(function(s,i){
-      rep('<b>'+s[0]+'</b><span>'+s[1]+'</span>','<b>'+cesc(cval(s[2]))+'</b><span>'+cesc(cval(s[3]))+'</span>','Stat '+(i+1));
-    });
-    repE('A developer who ',cval('c-aboutH1'),'About heading (age)');
-    repE('explains',cval('c-aboutH2'),'About heading (mint)');
-    repE(' the work',cval('c-aboutH3'),'About heading (pore)');
-    repE('I am a WordPress developer with 3+ years of experience and 100+ projects for small businesses worldwide. My strength is WordPress done properly — a clear structure, fast loading, and a fix that starts from the cause, explained in plain language, not jargon.',cval('c-aboutIntro'),'About intro');
-    var tags=cval('c-aboutTags').split(',').map(function(t){return t.trim()}).filter(Boolean);
-    var newTags='<div class="about-tags">'+tags.map(function(t){return '<span>'+cesc(t)+'</span>'}).join('')+'</div>';
-    var mTags=html.match(/<div class="about-tags">[\s\S]*?<\/div>/);
-    if(mTags){html=html.replace(mTags[0],newTags)}else{skipped.push('About tags')}
-    var checks=cval('c-aboutCheck').split('\n').map(function(t){return t.trim()}).filter(Boolean);
-    var newCheck='<div class="check">'+checks.map(function(t){return '<div>'+cesc(t)+'</div>'}).join('')+'</div>';
-    var mCheck=html.match(/<div class="check">\s*(?:<div>[^<]*<\/div>\s*)+<\/div>/);
-    if(mCheck){html=html.replace(mCheck[0],newCheck)}else{skipped.push('About checklist')}
-    CSVC.forEach(function(s,i){
-      repE(s[0],cval('c-svcT'+i),'Service '+(i+1)+' title');
-      repE(s[1],cval('c-svcD'+i),'Service '+(i+1)+' description');
-    });
-    repE('Also: Migration and maintenance.',cval('c-svcNote'),'Services note');
-    rep('devshakilkhanofficial@gmail.com',cval('c-email'),'Contact email');
-    rep('https://www.linkedin.com/in/dev-shakil-khan/',cval('c-linkedin'),'LinkedIn');
-    rep('https://github.com/webshakilpro',cval('c-github'),'GitHub');
-    rep('https://www.facebook.com/shakilkhan.563589',cval('c-facebook'),'Facebook');
-    rep('https://wa.me/8801902369754',cval('c-whatsapp'),'WhatsApp');
-    repE('WordPress Developer. I build fast business websites and fix broken, slow WordPress sites — Elementor, WooCommerce and Crocoblock. First I find the cause, then I fix it.',cval('c-footDesc'),'Footer description');
-    repE('© 2026 Shakil Khan. All rights reserved.',cval('c-copyright'),'Copyright');
-    document.querySelectorAll('.ctlSec').forEach(function(c){if(!c.checked){html=ctlHideSection(html,c.getAttribute('data-sec'))}});
-    var blob=new Blob([html],{type:'text/html'});
+    var r=applyControlEdits(html);
+    var blob=new Blob([r.html],{type:'text/html'});
     var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';document.body.appendChild(a);a.click();a.remove();
-    st.textContent='Download hoyeche! File er nam: index.html\nEi file ta amake (Neo) pathale ami check kore live kore dibo.'+(skipped.length?('\nKichu field milay nai (live file bodle gele hote pare): '+skipped.join(', ')):'');
+    st.textContent='Download hoyeche! File er nam: index.html'+(r.skipped.length?('\nKichu field milay nai (live file bodle gele hote pare): '+r.skipped.join(', ')):'');
   }catch(e){st.textContent='Export hoy nai: '+e.message}
+}
+var GH_REPO='webshakilpro/webpro-site';
+var GH_BRANCH='main';
+function ghToken(){try{return localStorage.getItem('ghToken')||''}catch(e){return ''}}
+function ghHeaders(){return {'Accept':'application/vnd.github+json','Content-Type':'application/json','Authorization':'Bearer '+ghToken()}}
+function b64enc(s){return btoa(unescape(encodeURIComponent(s)))}
+function b64dec(s){return decodeURIComponent(escape(atob(s)))}
+async function ghGetFile(path){
+  var r=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+path+'?ref='+GH_BRANCH,{headers:ghHeaders()});
+  if(r.status===404)return {missing:true};
+  var j=await r.json();
+  if(!r.ok)return {error:(j.message||('File ana jay nai ('+r.status+')'))};
+  return {sha:j.sha,text:b64dec(j.content.replace(/\n/g,''))};
+}
+async function ghPutFile(path,text,sha,msg){
+  var body={message:msg,content:b64enc(text),branch:GH_BRANCH};
+  if(sha)body.sha=sha;
+  var r=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+path,{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
+  var j=await r.json().catch(function(){return {}});
+  if(!r.ok)return {error:(j.message||('Save hoy nai ('+r.status+')'))};
+  return {ok:true};
+}
+function ghSaveToken(){
+  var v=document.getElementById('ghTokenInput').value.trim();
+  var m=document.getElementById('ghMsg');
+  if(!v){m.textContent='Age token field e token dao.';return}
+  try{localStorage.setItem('ghToken',v)}catch(e){m.textContent='Token save hoy nai (browser block korche).';return}
+  document.getElementById('ghTokenInput').value='';
+  m.textContent='Token save ache ✓ — eta sudhu ei browser e thakbe, kothao pathano hoy nai.';
+}
+function ghClearToken(){
+  try{localStorage.removeItem('ghToken')}catch(e){}
+  document.getElementById('ghMsg').textContent='Token muchhe fela hoyeche.';
+}
+async function ghTest(){
+  var m=document.getElementById('ghMsg');m.textContent='Check hochche...';
+  if(!ghToken()){m.textContent='Age token save koro.';return}
+  try{
+    var r=await fetch('https://api.github.com/repos/'+GH_REPO,{headers:ghHeaders()});
+    var j=await r.json();
+    if(!r.ok){m.textContent='Connection hoy nai: '+(j.message||r.status);return}
+    m.textContent='Connection thik ache ✓ — repo: '+j.full_name;
+  }catch(e){m.textContent='Connection hoy nai: '+e.message}
+}
+async function publishSite(){
+  var st=document.getElementById('ctlStatus');
+  if(sbRole!=='admin'){st.textContent='Live Publish sudhu Administrator korte parbe.';return}
+  if(!ghToken()){st.textContent='Age Settings e GitHub token save koro, tarpor Live Publish chapo.';return}
+  st.textContent='Live file ana hochche...';
+  try{
+    var f=await ghGetFile('index.html');
+    if(f.error)throw new Error(f.error);
+    if(f.missing)throw new Error('Repo te index.html pawa jay nai.');
+    var r=applyControlEdits(f.text);
+    st.textContent='Live e publish hochche...';
+    var p=await ghPutFile('index.html',r.html,f.sha,'Dashboard theke website update');
+    if(p.error)throw new Error(p.error);
+    st.textContent='Live publish hoyeche! 1-2 min er moddhe webpro-blue.vercel.app e dekhte parba.'+(r.skipped.length?('\nKichu field milay nai, tai bodlay nai: '+r.skipped.join(', ')):'');
+  }catch(e){st.textContent='Live publish hoy nai: '+e.message}
+}
+function blogSlug(t){
+  return t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80);
+}
+function blogMonthYear(){
+  var m=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var d=new Date();
+  return m[d.getMonth()]+' '+d.getFullYear();
+}
+function blogToday(){
+  var d=new Date();
+  function p(n){return (n<10?'0':'')+n}
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+}
+function blogBodyHtml(txt){
+  var blocks=txt.split(/\n\s*\n/).map(function(b){return b.trim()}).filter(Boolean);
+  return blocks.map(function(b){
+    if(b.indexOf('## ')===0)return '<h2>'+cesc(b.slice(3).trim())+'</h2>';
+    return '<p>'+cesc(b).replace(/\n/g,' ')+'</p>';
+  }).join('');
+}
+function blogPostPage(title,cat,img,bodyHtml,relGrid,monthYear){
+  var hero=img?('<img class="post-hero" src="'+img.replace(/"/g,'')+'" alt="'+cesc(title)+'">'):'';
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+cesc(title)+' — Shakil Khan</title><link rel="stylesheet" href="blog.css"></head><body>'
+  +'<header><div class="nav"><a class="logo" href="index.html"><img class="logo-img" src="shakil-logo-claude.svg" alt="Shakil khan"></a><button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="mainNav">☰</button><nav id="mainNav"><button class="menu-close" id="menuClose" aria-label="Close menu">✕</button><a href="index.html#home">Home</a><a href="index.html#services">Services</a><a href="index.html#about">About Me</a><a href="index.html#portfolio">Portfolio</a><a href="blog.html" class="active">Blog</a><a href="index.html#contact">Contact</a><a class="btn-red menu-cta" href="index.html#contact"><span>Contact Us →</span></a></nav><a class="btn-red" href="index.html#contact"><span>Contact Us →</span></a></div></header><div id="menuOverlay"></div>'
+  +'<section class="post-sec"><div class="wrap">'
+  +'<a class="back" href="index.html">← All posts</a>'
+  +'<p><span class="cat">Category: '+cesc(cat)+'</span></p><p class="eyebrow">— BLOG</p><h1>'+cesc(title)+'</h1>'
+  +'<p class="meta">Shakil Khan • '+monthYear+' • '+cesc(cat)+'</p>'
+  +hero+'<div class="post-body">'+bodyHtml+'</div>'
+  +'<div class="rel"><h2>More posts</h2><div class="rel-grid">'+relGrid+'</div></div></div></div></section>'
+  +'<footer><div class="wrap"><div class="foot-grid"><div><img class="foot-logo" src="shakil-logo-claude.svg" alt="Shakil khan"><p style="color:#bdbdbd">WordPress Developer. I build fast business websites and fix broken, slow WordPress sites — Elementor, WooCommerce and Crocoblock. First I find the cause, then I fix it.</p></div><div><h3 style="margin-top:0">Quick Links</h3><p style="margin:6px 0"><a href="index.html#home">Home</a></p><p style="margin:6px 0"><a href="index.html#services">Services</a></p><p style="margin:6px 0"><a href="index.html#about">About Me</a></p><p style="margin:6px 0"><a href="index.html#portfolio">Portfolio</a></p><p style="margin:6px 0"><a href="index.html#contact">Contact</a></p></div><div><h3 style="margin-top:0">Services</h3><p style="margin:6px 0;color:#bdbdbd">Business Websites</p><p style="margin:6px 0;color:#bdbdbd">WooCommerce Shops</p><p style="margin:6px 0;color:#bdbdbd">Bug Fixes &amp; Speed</p><p style="margin:6px 0;color:#bdbdbd">Booking, Migration &amp; Maintenance</p></div></div></div><div class="foot"><span>© 2026 Shakil Khan. All rights reserved.</span><span class="soc"><a href="https://www.linkedin.com/in/dev-shakil-khan/">in</a><a href="https://github.com/webshakilpro">GH</a></span></div></footer>'
+  +'<script>(function(){var btn=document.getElementById(\'menuBtn\');var closeBtn=document.getElementById(\'menuClose\');var overlay=document.getElementById(\'menuOverlay\');if(!btn)return;function setOpen(open){document.body.classList.toggle(\'menu-open\',open);btn.setAttribute(\'aria-expanded\',open?\'true\':\'false\');document.body.style.overflow=open?\'hidden\':\'\'}btn.addEventListener(\'click\',function(){setOpen(!document.body.classList.contains(\'menu-open\'))});if(closeBtn)closeBtn.addEventListener(\'click\',function(){setOpen(false)});if(overlay)overlay.addEventListener(\'click\',function(){setOpen(false)});document.querySelectorAll(\'#mainNav a\').forEach(function(a){a.addEventListener(\'click\',function(){setOpen(false)})})})();<\/script></body></html>';
+}
+async function publishBlog(){
+  var st=document.getElementById('blogStatus');
+  if(sbRole!=='admin'){st.textContent='Blog post sudhu Administrator korte parbe.';return}
+  if(!ghToken()){st.textContent='Age Settings e GitHub token save koro, tarpor post koro.';return}
+  var title=document.getElementById('bpTitle').value.trim();
+  var cat=document.getElementById('bpCat').value.trim();
+  var img=document.getElementById('bpImg').value.trim().replace(/"/g,'');
+  var excerpt=document.getElementById('bpExcerpt').value.trim();
+  var content=document.getElementById('bpContent').value.trim();
+  if(!title||!cat||!content){st.textContent='Title, Category ar lekha — ei 3 ta lagbei.';return}
+  var slug=blogSlug(title);
+  if(!slug){st.textContent='Title theke link (slug) banano jay nai — English title dao.';return}
+  var file='blog-'+slug+'.html';
+  var monthYear=blogMonthYear();
+  var bodyHtml=blogBodyHtml(content);
+  if(!excerpt){var first=content.split(/\n\s*\n/)[0].replace(/\n/g,' ');excerpt=first.length>160?first.slice(0,157)+'...':first}
+  st.textContent='Post toiri hochche...';
+  try{
+    var chk=await ghGetFile(file);
+    if(chk.error)throw new Error(chk.error);
+    if(!chk.missing)throw new Error('Ei title e ekta post agei ache — title ta ektu bodlao.');
+    var bl=await ghGetFile('blog.html');
+    if(bl.error)throw new Error(bl.error);
+    if(bl.missing)throw new Error('Repo te blog.html pawa jay nai.');
+    var cards=[];
+    var reCard=/<article class="post-card"><a href="([^"]+)">(?:<img src="([^"]+)" alt="([^"]*)">)?<\/a><div class="post-body"><p class="post-meta">([^<]+)<\/p><h2><a href="[^"]+">([^<]+)<\/a><\/h2><p>([^<]*)<\/p>/g;
+    var m;
+    while((m=reCard.exec(bl.text))!==null){cards.push({href:m[1],img:m[2]||'',alt:m[3]||'',meta:m[4],title:m[5],ex:m[6]})}
+    var relGrid=cards.slice(0,3).map(function(c){return '<a href="'+c.href+'">'+(c.img?('<img src="'+c.img+'" alt="">'):'')+'<span>'+c.title+'</span></a>'}).join('');
+    var postHtml=blogPostPage(title,cat,img,bodyHtml,relGrid,monthYear);
+    var p1=await ghPutFile(file,postHtml,null,'Dashboard theke blog post: '+title);
+    if(p1.error)throw new Error('Post page save hoy nai: '+p1.error);
+    var cardImg=img?('<img src="'+img+'" alt="'+cesc(title)+'">'):'';
+    var newCard='<article class="post-card"><a href="'+file+'">'+cardImg+'</a><div class="post-body"><p class="post-meta">'+cesc(cat)+' • '+monthYear+'</p><h2><a href="'+file+'">'+cesc(title)+'</a></h2><p>'+cesc(excerpt)+'</p><a class="pill" href="'+file+'"><span>Read More →</span></a></div></article>';
+    var listing=bl.text;
+    if(listing.indexOf('<article class="post-card">')>=0){listing=listing.replace('<article class="post-card">',newCard+'<article class="post-card">')}
+    else if(listing.indexOf('<main>')>=0){listing=listing.replace('<main>','<main>'+newCard)}
+    else{throw new Error('blog.html er list khuje pawa jay nai.')}
+    var reRecent=/<a href="([^"]+)">(?:<img[^>]*>)?<div><small>([^<]*)<\/small><b>([^<]*)<\/b><\/div><\/a>/g;
+    var recents=[];
+    while((m=reRecent.exec(listing))!==null){recents.push({href:m[1],cat:m[2],title:m[3]})}
+    var recHtml='<div class="recent">';
+    var recItems=[{href:file,cat:cat,title:title}].concat(recents).slice(0,3);
+    recItems.forEach(function(r){
+      var ri='';
+      var old=cards.filter(function(c){return c.href===r.href})[0];
+      if(r.href===file&&img)ri='<img src="'+img+'" alt="">';
+      else if(old&&old.img)ri='<img src="'+old.img+'" alt="">';
+      recHtml+='<a href="'+r.href+'">'+ri+'<div><small>'+cesc(r.cat)+'</small><b>'+cesc(r.title)+'</b></div></a>';
+    });
+    recHtml+='</div>';
+    var mRec=listing.match(/<div class="recent">[\s\S]*?<\/a><\/div>/);
+    if(mRec){listing=listing.replace(mRec[0],recHtml)}
+    var mCats=listing.match(/<ul class="cats">[\s\S]*?<\/ul>/);
+    if(mCats){
+      var catsBlock=mCats[0];
+      var catRe=new RegExp('<li><a href="([^"]+)">'+cat.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+' <span>(\\d+)<\\/span><\\/a><\\/li>','i');
+      var cm=catsBlock.match(catRe);
+      if(cm){catsBlock=catsBlock.replace(catRe,'<li><a href="'+cm[1]+'">'+cesc(cat)+' <span>'+(parseInt(cm[2],10)+1)+'</span></a></li>')}
+      else{catsBlock=catsBlock.replace('</ul>','<li><a href="'+file+'">'+cesc(cat)+' <span>1</span></a></li></ul>')}
+      listing=listing.replace(mCats[0],catsBlock);
+    }
+    var tagsMatch=listing.match(/<p class="tags">([\s\S]*?)<\/p>/);
+    if(tagsMatch&&tagsMatch[0].indexOf('>'+cesc(cat)+'<')<0){listing=listing.replace(tagsMatch[0],'<p class="tags">'+tagsMatch[1]+'<span>'+cesc(cat)+'</span></p>')}
+    var p2=await ghPutFile('blog.html',listing,bl.sha,'Dashboard theke blog list update: '+title);
+    if(p2.error)throw new Error('blog.html update hoy nai (post page toiri hoyeche): '+p2.error);
+    var sm=await ghGetFile('sitemap.xml');
+    if(!sm.error&&!sm.missing){
+      var smText=sm.text.replace('</urlset>','  <url><loc>https://webpro-blue.vercel.app/'+file+'</loc><lastmod>'+blogToday()+'</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n</urlset>');
+      await ghPutFile('sitemap.xml',smText,sm.sha,'Dashboard theke sitemap update: '+title);
+    }
+    var ix=await ghGetFile('index.html');
+    if(!ix.error&&!ix.missing){
+      var homeCards=[];
+      var reHome=/<article class="blog"><a href="([^"]+)"><div class="blog-visual">(?:<img src="([^"]+)" alt="([^"]*)">)?<\/div><\/a><div class="blog-body"><h3><a href="[^"]+">([^<]+)<\/a><\/h3>/g;
+      while((m=reHome.exec(ix.text))!==null){homeCards.push({href:m[1],img:m[2]||'',alt:m[3]||'',title:m[4]})}
+      if(homeCards.length){
+        var newHome='<article class="blog"><a href="'+file+'"><div class="blog-visual">'+(img?('<img src="'+img+'" alt="'+cesc(title)+'">'):'')+'</div></a><div class="blog-body"><h3><a href="'+file+'">'+cesc(title)+'</a></h3><a class="blog-btn" href="'+file+'"><span>Read More</span></a></div></article>';
+        var homeList=[{href:file,img:img,alt:title,title:title}].concat(homeCards).slice(0,3);
+        var homeGrid=homeList.map(function(c){
+          if(c.href===file)return newHome;
+          return '<article class="blog"><a href="'+c.href+'"><div class="blog-visual">'+(c.img?('<img src="'+c.img+'" alt="'+cesc(c.alt)+'">'):'')+'</div></a><div class="blog-body"><h3><a href="'+c.href+'">'+cesc(c.title)+'</a></h3><a class="blog-btn" href="'+c.href+'"><span>Read More</span></a></div></article>';
+        }).join('');
+        var mGrid=ix.text.match(/<div class="blog-grid">[\s\S]*?<\/article>\s*<\/div>/);
+        if(mGrid){ix.text=ix.text.replace(mGrid[0],'<div class="blog-grid">'+homeGrid+'</div>')}
+        var p3=await ghPutFile('index.html',ix.text,ix.sha,'Dashboard theke home blog update: '+title);
+        if(p3.error){st.textContent='Post live hoyeche (blog page + sitemap), kintu home er blog section update hoy nai: '+p3.error;return}
+      }
+    }
+    st.textContent='Post live hoyeche! 1-2 min er moddhe blog page e dekhte parba: blog.html ar home page er blog section — link: '+file;
+    document.getElementById('bpTitle').value='';
+    document.getElementById('bpExcerpt').value='';
+    document.getElementById('bpContent').value='';
+  }catch(e){st.textContent='Post hoy nai: '+e.message}
 }
 </script>
 </body>
