@@ -205,11 +205,11 @@ Clear explanations</textarea>
 
 <section class="panel ctl" id="blogpost" style="margin-top:18px;display:none">
 <h2>Blog Posts</h2>
-<p class="note">Ekhane tomar sob blog post er list ache — Edit kore bodlate parba, ar nicher form theke notun post jog korte parba (WordPress er Posts page er moto). Sudhu Administrator post edit/add korte parbe.</p>
-<div style="margin:16px 0">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 style="margin:0;font-size:15px">Sob post (<span id="bpCount">0</span> ta)</h3><button class="btn2" onclick="loadBlogList()">List refresh koro</button></div>
-<div id="bpList" style="margin-top:10px"></div>
-</div></p>
+<p class="note">WordPress er Posts page er moto — list theke Edit koro, ar uporer Add Blog Post button e click kore notun post likho. Sudhu Administrator post edit/add korte parbe.</p>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0"><h3 style="margin:0;font-size:15px">Sob post (<span id="bpCount">0</span> ta)</h3><div><button class="btn2" onclick="bpAddPost()">+ Add Blog Post</button><button class="btn2" style="margin-left:8px" onclick="loadBlogList()">List refresh koro</button></div></div>
+<p id="blogStatus"></p>
+<div id="bpListWrap"><div id="bpList" style="margin-top:10px"></div></div>
+<div id="bpFormWrap" style="display:none">
 <h3 id="bpFormTitle" style="font-size:15px">Notun post</h3>
 <label>Title *</label><input type="text" id="bpTitle" placeholder="Post er title">
 <label>Category *</label><input type="text" id="bpCat" placeholder="jemon: WordPress">
@@ -217,7 +217,7 @@ Clear explanations</textarea>
 <label>Choto excerpt (khali rakhle lekhar prothom ongsho theke neoa hobe)</label><textarea id="bpExcerpt"></textarea>
 <label>Lekha * (paragraph er majhe khali line dao; ## diye suru korle heading hobe)</label><textarea id="bpContent" rows="10"></textarea>
 <div style="margin-top:14px"><button class="btn2" id="bpSubmit" onclick="publishBlog()">Blog post live koro</button><button class="btn2" id="bpCancel" style="display:none;margin-left:8px" onclick="bpCancelEdit()">Cancel</button></div>
-<p id="blogStatus"></p>
+</div>
 </section>
 
 <section class="panel" id="projects" style="margin-top:18px">
@@ -448,7 +448,7 @@ function showView(id){
   var link=document.querySelector('.menu a[href="#'+id+'"]');
   if(link)link.classList.add('active');
   window.scrollTo(0,0);
-  if(id==='blogpost')loadBlogList();
+  if(id==='blogpost'){bpShowList();loadBlogList();}
 }
 document.querySelectorAll('.menu a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
@@ -727,11 +727,14 @@ async function publishBlog(){
     document.getElementById('bpTitle').value='';
     document.getElementById('bpExcerpt').value='';
     document.getElementById('bpContent').value='';
-    loadBlogList();
+    bpShowList();loadBlogList();
   }catch(e){st.textContent='Post hoy nai: '+e.message}
 }
 
 var bpEditing=null;
+function bpShowForm(){document.getElementById('bpListWrap').style.display='none';document.getElementById('bpFormWrap').style.display='';}
+function bpShowList(){document.getElementById('bpFormWrap').style.display='none';document.getElementById('bpListWrap').style.display='';}
+function bpAddPost(){bpEditing=null;document.getElementById('bpTitle').value='';document.getElementById('bpCat').value='';document.getElementById('bpImg').value='';document.getElementById('bpExcerpt').value='';document.getElementById('bpContent').value='';document.getElementById('blogStatus').textContent='';bpSetMode();bpShowForm();}
 function bpSetMode(){
   var editing=!!bpEditing;
   document.getElementById('bpFormTitle').textContent=editing?('Post edit koro: '+bpEditing.file):'Notun post';
@@ -746,7 +749,7 @@ function bpCancelEdit(){
   document.getElementById('bpExcerpt').value='';
   document.getElementById('bpContent').value='';
   document.getElementById('blogStatus').textContent='';
-  bpSetMode();
+  bpSetMode(); bpShowList();
 }
 function bpUnescape(s){return s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'")}
 function blogBodyToText(body){
@@ -813,6 +816,7 @@ async function bpEditPost(file){
     document.getElementById('bpContent').value=bm?blogBodyToText(bm[1]):'';
     bpEditing={file:file,monthYear:mm?mm[1].trim():'',oldCat:cm?bpUnescape(cm[1]):''};
     bpSetMode();
+    bpShowForm();
     st.textContent='Edit mode: '+file+' — bodle "Post update koro" chapo.';
     document.getElementById('blogpost').scrollIntoView();
   }catch(e){st.textContent='Post ana jay nai: '+e.message}
@@ -894,7 +898,7 @@ async function publishBlogEdit(){
         var newHome='<article class="blog"><a href="'+file+'"><div class="blog-visual">'+(img?('<img src="'+img+'" alt="'+cesc(title)+'">'):'')+'</div></a><div class="blog-body"><h3><a href="'+file+'">'+cesc(title)+'</a></h3><a class="blog-btn" href="'+file+'"><span>Read More</span></a></div></article>';
         ix.text=ix.text.replace(homeRe,newHome);
         var p3=await ghPutFile('index.html',ix.text,ix.sha,'Dashboard theke home blog update (edit): '+title);
-        if(p3.error){st.textContent='Post update hoyeche (post page + blog list), kintu home update hoy nai: '+p3.error;bpEditing=null;bpSetMode();loadBlogList();return}
+        if(p3.error){st.textContent='Post update hoyeche (post page + blog list), kintu home update hoy nai: '+p3.error;bpEditing=null;bpSetMode();bpShowList();loadBlogList();return}
       }
     }
     bpEditing=null;
@@ -905,7 +909,7 @@ async function publishBlogEdit(){
     document.getElementById('bpContent').value='';
     bpSetMode();
     st.textContent='Post update hoyeche! 1-2 min er moddhe live dekhte parba.';
-    loadBlogList();
+    bpShowList();loadBlogList();
   }catch(e){st.textContent='Post update hoy nai: '+e.message}
 }
 </script>
